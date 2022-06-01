@@ -1,6 +1,6 @@
 ---
 title: "Covid Data and Restrictions - Extraction"
-output: html_notebook
+output: github_document
 ---
 ```{r setup, include=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 

@@ -1,10 +1,13 @@
 ---
 title: "Covid Data and Restrictions - Plotting data"
-output: html_notebook
+output: github_document
+html_preview: true
 ---
 ```{r setup, include=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
+
+
 Load required packages
 ```{r}
 if (!require(pacman)) install.packages('pacman')
