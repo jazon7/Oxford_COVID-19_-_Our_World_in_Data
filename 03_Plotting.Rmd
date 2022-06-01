@@ -1,7 +1,6 @@
 ---
 title: "Covid Data and Restrictions - Plotting data"
 output: github_document
-html_preview: true
 ---
 ```{r setup, include=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
