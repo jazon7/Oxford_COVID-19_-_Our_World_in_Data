@@ -24,7 +24,8 @@ df_small <- readRDS("OxOw_Extraction_small.rds")
 
 ## Plot Total Restrictions on World MAP
 ```{r}
-df_world <- df %>% filter(date == "2022-05-20")
+date_input <- "2022-05-20"
+df_world <- df %>% filter(date == date_input)
 
 world_map <- map_data("world")
 world_map <- world_map  %>% select(-c(order,subregion))
@@ -49,22 +50,22 @@ ggplot(world, aes(x = long, y = lat, group = group)) +
   geom_polygon(aes(fill = total_restrictions), colour = 'white') +
   scale_fill_viridis_c(option = "C", direction = -1) +
   labs(fill = "Total Restrictions") +
-  labs(title = "Covid Restriction by Country",
-            subtitle = "20th May 2022")+
+  labs(title = "Covid Restriction World Map",
+            subtitle = "as of 20th May 2022")+
   geom_text(data = world_lab_data, x = 10, 
             y = 70, label = "Sweden",stat = "unique", size =4, colour = 'darkgreen') +
-   geom_text(data = world_lab_data, x = 85, 
+  geom_text(data = world_lab_data, x = 85, 
             y = 5, label = "India",stat = "unique", size = 4.5, colour = 'red') +
   geom_text_repel(data = world_lab_data, aes(label = location), max.overlaps = 2,
             size=3.5, min.segment.length = 2, colour = 'black') +
-  theme_void() +
-  theme(axis.title=element_blank(),
+  theme_map() +
+  theme(    axis.title=element_blank(),
             axis.text=element_blank(),
             axis.ticks=element_blank(),
-            plot.title = element_text(hjust = 0.5, size = 18),
-            plot.subtitle = element_text(hjust = 0.5, size = 14),
-            legend.text=element_text(size=12),
-            legend.title=element_text(size=13),
+            plot.title = element_text(hjust = 0.5, size = 16, family="serif"),
+            plot.subtitle = element_text(hjust = 0.5, size = 12),
+            legend.text=element_text(size=12,family="serif"),
+            legend.title=element_text(size=13,family="serif"),
             legend.position="right",
             legend.direction = "vertical")
 ```
@@ -83,8 +84,8 @@ df_filter_date <- function(dt){
 }
 
 #select date
-df_date <- df_filter_date("2022-05-20")
-date_input <- '2022-05-20'
+df_date <- df_filter_date(date_input)
+
 #scatter plot 
 df_date %>% 
 ggplot(aes(x = total_restrictions, y = total_deaths_per_million, label = location)) +
