@@ -46,9 +46,9 @@ world <- world %>% filter(location != "Antarctica" )
 ggplot(world, aes(x = long, y = lat, group = group)) +
   geom_polygon(aes(fill = total_restrictions), colour = 'white') +
   scale_fill_viridis_c(option = "C", direction = -1) +
-  labs(fill = "Total Restrictions") +
-  labs(title = "Covid Restriction World Map",
-            subtitle = "as of 20th May 2022")+
+  labs(fill = "Total restrictions") +
+  labs(title = "Covid Restrictions World Map",
+            subtitle = paste0("as of ", date_input))+
   geom_text(data = world_lab_data, x = 10, 
             y = 70, label = "Sweden",stat = "unique", size =4, colour = 'darkgreen') +
   geom_text(data = world_lab_data, x = 85, 
@@ -99,7 +99,7 @@ ggplot(aes(x = total_restrictions, y = total_deaths_per_million, label = locatio
         labs(color = "Continent") +
         ylab("Total deaths per million") +
         xlab("Total Restrictions") +
-        ggtitle(paste0("Total deaths per million vs Total Restrictions as of ", date_input)) +
+        ggtitle(paste0("Total deaths per million vs Total restrictions as of ", date_input)) +
         guides(color = guide_legend(override.aes = list(size = 7))) +
         theme_minimal()+
         theme(axis.title = element_text(size = 14, family="serif"),
