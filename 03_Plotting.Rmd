@@ -11,7 +11,7 @@ Load required packages
 ```{r}
 if (!require(pacman)) install.packages('pacman')
 library(pacman)
-p_load(tidyverse,ggpubr, map_data,ggrepel,ggtext,scales)
+p_load(tidyverse,ggpubr, map_data,ggrepel,ggtext,scales,viridis,ggthemes)
 options(scipen=999)
 options(warn=-1)
 ```
@@ -68,6 +68,48 @@ ggplot(world, aes(x = long, y = lat, group = group)) +
             legend.position="right",
             legend.direction = "vertical")
 ```
+
+
+#Scatter plot country comparison
+```{r}
+
+#function to filter by continent and date
+df_filter_date <- function(dt){
+    df <- df_small %>%
+      filter(date == dt) %>% 
+      filter(!is.na(continent)) %>% 
+      select(continent, location, date, total_restrictions, total_deaths_per_million) %>%
+      drop_na()
+}
+
+#select date
+df_date <- df_filter_date("2022-05-20")
+date_input <- '2022-05-20'
+#scatter plot 
+df_date %>% 
+ggplot(aes(x = total_restrictions, y = total_deaths_per_million, label = location)) +
+        geom_point(data = df_date, aes(color = continent)) +
+        geom_smooth(method = lm, se = F, colour = 'grey') +
+        scale_size_continuous(range = c(2,10)) +
+        scale_color_viridis(discrete = TRUE, option = 'C') +
+        geom_text_repel(max.overlaps = 10, size = 3) +
+        annotate("text", label= paste0("R = ", round(with(df_date,
+                cor.test(total_restrictions, total_deaths_per_million,method = "pearson"))$estimate, 2),", p = ", 
+                round(with(df_date,cor.test(total_restrictions, total_deaths_per_million,method = "pearson"))$p.value, 3),
+                ", n = ", nrow(df_date)),x = 1500, y = 6500, color="red", size=3.5) +
+        labs(color = "Continent") +
+        ylab("Total deaths per million") +
+        xlab("Total Restrictions") +
+        ggtitle(paste0("Total deaths per million vs Total Restrictions as of ", date_input)) +
+        guides(color = guide_legend(override.aes = list(size = 7))) +
+        theme_minimal()+
+        theme(axis.title = element_text(size = 14, family="serif"),
+              axis.text = element_text(size = 12, family="serif"),
+              legend.title = element_text(size = 13,family="serif"),
+              legend.text = element_text(size = 10,family="serif"),
+              plot.title = element_text(size = 14, family="serif"))
+```
+
 
 ### Cleanup workspace
 ```{r}
