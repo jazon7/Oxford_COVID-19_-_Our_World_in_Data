@@ -1,0 +1,16 @@
+---
+title: "Covid Data and Restrictions - Regression Models - World"
+output: github_document
+always_allow_html: yes
+---
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+if (!require(pacman)) install.packages('pacman')
+library(pacman)
+p_load(tidyverse,ggpubr,ggrepel,ggtext,scales,viridis,ggthemes,psych,kableExtra,corrr)
+options(scipen=999)
+options(warn=-1)
+```

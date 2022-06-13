@@ -592,20 +592,10 @@ cardiovasc_death_rate
 </table>
 
 ![](03_Analysis_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->![](03_Analysis_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
-\### Scatter plots - total deaths per million vs. stringency / total
-restrictions cubed
 
-``` r
-country_scatter(df_europe_20211230,"max_stringency",'yes')
-```
+### Scatter plots - total covid deaths per million vs. stringency / total_restrictions cubed
 
-![](03_Analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
-
-``` r
-country_scatter(df_europe_20211230,"total_restrictions_cubed",'yes')
-```
-
-![](03_Analysis_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+![](03_Analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->![](03_Analysis_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
 
 ### Regression
 

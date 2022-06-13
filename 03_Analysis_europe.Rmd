@@ -1,7 +1,7 @@
 ---
 title: "Covid Data and Restrictions - Regression Models"
 output: github_document
-always_allow_html: true
+always_allow_html: yes
 ---
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
@@ -232,8 +232,6 @@ mlr_table_si(df_europe_20201230)
 mlr_table_res(df_europe_20201230)
 ```
 
-
-
 # **European Countries - 2021-12-30**
 
 ### Maps
@@ -253,8 +251,9 @@ corr_table(df_europe_20211230)
 corr_plot(df_europe_20211230)
 corr_matrix(df_europe_20211230)
 ```
-### Scatter plots - total deaths per million vs. stringency / total restrictions cubed
-```{r}
+
+### Scatter plots - total covid deaths per million vs. stringency / total_restrictions cubed
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
 country_scatter(df_europe_20211230,"max_stringency",'yes')
 country_scatter(df_europe_20211230,"total_restrictions_cubed",'yes')
 ```
@@ -320,6 +319,7 @@ lally_countries %>% as_tibble() %>%
   kable_classic(full_width = F) 
 # Number of countries in analysis 
 ```
+
 
 ### Data sources:
 * [Our World in Data](https://covid.ourworldindata.org/data/owid-covid-data.csv)
