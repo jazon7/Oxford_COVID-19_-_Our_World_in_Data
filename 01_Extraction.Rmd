@@ -207,6 +207,8 @@ df_max_si_europe_20201230 <- df %>% group_by(location) %>% summarise(max_stringe
 
 df_max_si_europe_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2021-12-30"))
 
+df_max_si_europe_20220520 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2022-05-20"))
+
 df_large <- merge(df, df_max_si, by = 'location')
 
 df_europe <- df_continent(df, "Europe")
@@ -215,6 +217,9 @@ df_europe_20201230_large <- merge(df_europe_20201230, df_max_si_europe_20201230,
 
 df_europe_20211230 <- df_date(df_europe,"2021-12-30")
 df_europe_20211230_large <- merge(df_europe_20211230, df_max_si_europe_20211230, by = 'location')
+
+df_europe_20220520 <- df_date(df_europe,"2022-05-20")
+df_europe_20220520_large <- merge(df_europe_20220520, df_max_si_europe_20220520, by = 'location')
 ```
 # Create filtered version of data for exporting
 ```{r}
@@ -225,6 +230,7 @@ small_column_list <- c("iso_code","continent","location","date","c2_workplace_cl
 df_small <- df_large %>% select(small_column_list)
 df_europe_20201230_small <- df_europe_20201230_large %>% select(small_column_list) %>% select(-c("new_deaths_per_million")) 
 df_europe_20211230_small <- df_europe_20211230_large %>% select(small_column_list) %>% select(-c("new_deaths_per_million")) 
+df_europe_20220520_small <- df_europe_20220520_large %>% select(small_column_list) %>% select(-c("new_deaths_per_million"))
 
 ```
 
@@ -240,6 +246,9 @@ df_europe_20201230_small <- df_europe_20201230_small %>% arrange(location,date)
 df_europe_20211230_large <- df_europe_20211230_large %>% arrange(location,date)
 df_europe_20211230_small <- df_europe_20211230_small %>% arrange(location,date)
 
+df_europe_20220520_large <- df_europe_20220520_large %>% arrange(location,date)
+df_europe_20220520_small <- df_europe_20220520_small %>% arrange(location,date)
+
 ```
 
 ## Save data as RDS files
@@ -252,6 +261,9 @@ saveRDS(df_europe_20201230_small, file = "OxOw_Extraction_europe_20201230_small.
 
 saveRDS(df_europe_20211230_large, file = "OxOw_Extraction_europe_20211230_large.rds")
 saveRDS(df_europe_20211230_small, file = "OxOw_Extraction_europe_20211230_small.rds")
+
+saveRDS(df_europe_20220520_large, file = "OxOw_Extraction_europe_20220520_large.rds")
+saveRDS(df_europe_20220520_small, file = "OxOw_Extraction_europe_20220520_small.rds")
 ```
 
 ## Cleanup workspace
@@ -261,5 +273,7 @@ rm(list=setdiff(ls(), c("df_large","df_small",
                         "df_europe_20201230_large",
                         "df_europe_20201230_small",
                         "df_europe_20211230_large",
-                        "df_europe_20211230_small")))
+                        "df_europe_20211230_small",
+                        "df_europe_20220520_large",
+                        "df_europe_20220520_small")))
 ```
