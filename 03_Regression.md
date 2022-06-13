@@ -1564,3 +1564,12 @@ United Kingdom
 </tr>
 </tbody>
 </table>
+
+### Data sources:
+
+-   [Our World in
+    Data](https://covid.ourworldindata.org/data/owid-covid-data.csv)
+-   [The Oxford COVID-19 Government Response
+    Tracker](https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv)
+-   [Average latitude & longitude for
+    Countries](https://raw.githubusercontent.com/albertyw/avenews/master/old/data/average-latitude-longitude-countries.csv)
