@@ -1,5 +1,5 @@
 ---
-title: "Covid Data and Restrictions - Regression Models"
+title: "Covid Data and Restrictions - Regression Models - Europe"
 output: github_document
 always_allow_html: yes
 ---
