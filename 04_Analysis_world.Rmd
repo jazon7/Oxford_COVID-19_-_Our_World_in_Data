@@ -14,3 +14,255 @@ p_load(tidyverse,ggpubr,ggrepel,ggtext,scales,viridis,ggthemes,psych,kableExtra,
 options(scipen=999)
 options(warn=-1)
 ```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+df_world_20211230 <- readRDS("OxOw_Extraction_world_20211230_large.rds")
+```
+
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+cor_variables <- c("location","iso_code","date","continent","total_cases_per_million","total_deaths_per_million","people_fully_vaccinated_per_hundred","population_density","median_age","aged_65_older","gdp_per_capita","extreme_poverty","cardiovasc_death_rate","diabetes_prevalence","female_smokers","male_smokers","life_expectancy","human_development_index","latitude","longitude","total_restrictions","total_restrictions_cubed","first_death_date","date_first_death_days","max_stringency")
+
+df_world_20211230 <- df_world_20211230 %>% select(cor_variables)
+#replace -inf values with NA
+df_world_20211230[sapply(df_world_20211230, is.infinite)] <- NA
+
+corr_table <- function(df){
+  date <- df$date[1]
+  tble <- df[,unlist(lapply(df, is.numeric))] %>% correlate() %>% focus(total_deaths_per_million) %>% 
+  rename(Variable = term) %>% arrange(total_deaths_per_million) %>%  
+  kbl(caption = paste0("Correlation - World - Total deaths per million - ",date)) %>% 
+  kable_classic(full_width = F)
+  
+  return(tble)
+}
+
+corr_plot <- function (df){
+  date <- df$date[1]
+  plot <- df[,unlist(lapply(df, is.numeric))] %>% correlate() %>% focus(total_deaths_per_million) %>% 
+  mutate(term = factor(term, levels = term[order(total_deaths_per_million)])) %>%
+  ggplot(aes(x = term, y = total_deaths_per_million)) +
+    geom_bar(stat = "identity", fill = 'purple') +
+    ylab("Total deaths per million (corr)") +
+    xlab("") +
+    ylim(c(-1,1)) +
+    ggtitle(paste0("Correlation - World - Total deaths per million - ",date)) +
+    theme_classic2() +
+    theme(axis.text.x=element_text(angle=75,hjust=1,vjust=1))
+  
+  return(plot)
+  
+}
+
+corr_matrix <- function(df){
+  date <- df$date[1]
+  corPlot(df[,unlist(lapply(df, is.numeric))],
+        min.length = 10,
+        scale = FALSE,
+        diag = FALSE,
+        upper = FALSE,
+        alpha = 0.25,
+        stars = TRUE,
+        cex = 0.7,
+        xlas = 2,
+        pval = p,
+        main = paste0("Correlation - World - Total deaths per million - ",date),
+        )
+  
+}
+
+mlr_table_si <- function(df){
+  
+  capture.output(summary(lm(formula = total_deaths_per_million ~ max_stringency + median_age,
+             data = df)), file=NULL,append=FALSE) %>% 
+  as.tibble() %>% 
+  rename(regression = value) %>% 
+  kbl() %>% 
+  kable_classic()
+}
+
+mlr_table_res <- function(df){
+  
+  capture.output(summary(lm(formula = total_deaths_per_million ~ total_restrictions + median_age,
+              data = df)), file=NULL,append=FALSE) %>% 
+  as.tibble() %>% 
+  rename(regression = value) %>%
+  kbl() %>% 
+  kable_classic()
+}
+
+mlr_table_res_cubed <- function(df){
+  
+  capture.output(summary(lm(formula = total_deaths_per_million ~ total_restrictions_cubed + median_age,
+              data = df)), file=NULL,append=FALSE) %>% 
+  as.tibble() %>% 
+  rename(regression = value) %>%
+  kbl() %>% 
+  kable_classic()
+}
+
+#function to plot scatter plot 
+country_scatter <- function(df_input, x_metric, title, equation = "no", facet = 'no') {
+  if(df_input %>% select(x_metric) %>% min(na.rm = T) >=1){
+    min_x <- df_input %>% select(x_metric) %>% min(na.rm = T)
+  }
+  else{
+    min_x <- df_input %>% select(x_metric) %>% min(na.rm = T)
+  }
+  
+  max_x <- df_input %>% select(x_metric) %>% max(na.rm = T)
+  max_y <- df_input %>% select('total_deaths_per_million') %>% max(na.rm = T)
+  if (title == 'yes') {tit = T}
+  else {tit = F}
+  
+  if (equation == 'ann') {ann = T}
+  else {ann = F}
+  
+  if (facet == 'fac') {fc = T}
+  else {fc = F}
+
+  date <- df_input %>% select(date) %>% filter(row_number()==1) %>% pull()
+  plot <- df_input %>% 
+ggplot(aes_string(x = x_metric, y = "total_deaths_per_million", label = "location")) +
+        geom_point(data = df_input, aes(color = continent)) +
+        geom_smooth(method = lm, se = F, colour = 'grey') +
+        {if(fc)facet_wrap(~continent)} +
+        scale_size_continuous(range = c(2,10)) +
+        scale_color_viridis(discrete = TRUE, option = 'C') +
+        geom_text_repel(max.overlaps = 10, size = 3) +
+        {if(ann)annotate("text", label= paste0("R = ", round(with(df_input,
+                cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$estimate, 2),", p = ", 
+                round(with(df_input,cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$p.value, 3),
+                ", n = ", nrow(df_input)),x = min_x + (0.10 * (max_x - min_x)), y = max_y, color = "red", size = 3)} +
+        labs(color = "Continent") +
+        ylab("Total deaths per million") +
+        xlab(x_metric) +
+        {if(tit)ggtitle(paste0("Total deaths per million vs ", x_metric, " as of ", date))} +
+        guides(color = guide_legend(override.aes = list(size = 7))) +
+        theme_minimal()+
+        theme(axis.title = element_text(size = 14, family="serif"),
+              axis.text = element_text(size = 12, family="serif"),
+              legend.title = element_text(size = 13,family="serif"),
+              legend.text = element_text(size = 10,family="serif"),
+              plot.title = element_text(size = 14, family="serif"),
+              plot.title.position = 'plot'
+              )
+  return(plot)
+}
+
+#map print function
+country_map <- function(df,dt,fill_var,title,include_title){
+  
+  if (include_title == 'yes') {Switch = T}
+  else if((include_title == 'no')) {Switch = F}
+  
+  df_world <- df %>% filter(date == dt)
+
+  map_data <- map_data("world") %>% 
+    select(-c(order,subregion)) %>% 
+    rename(location = region)
+  
+  map_data$location <- gsub("Czech Republic","Czechia",map_data$location)
+  map_data$location <- gsub("USA", "United States", map_data$location)
+  map_data$location <- gsub("UK", "United Kingdom", map_data$location)
+
+  #merge dataframes based on country location
+  map_df <- full_join(map_data,df_world, by = 'location') %>% 
+  #select only specific columns
+  select(location,total_restrictions,total_restrictions_cubed, total_deaths_per_million,
+         max_stringency,group, long, lat)
+  
+  #summarise data to reduce to one country per row
+  map_lab_data <- map_df %>%
+  group_by(location) %>%
+  summarise(long = mean(long), lat = mean(lat), group = max(group))
+
+  map_lab_data  <- map_lab_data  %>% drop_na()
+  map_df <- map_df %>% drop_na()
+  
+  
+  
+  map <- ggplot(map_df, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes_string(fill = fill_var), colour = 'white') +
+  scale_fill_viridis_c(option = "C", direction = -1) +
+  labs(fill = fill_var) +
+  {if(Switch)ggtitle(paste0(title, " Map ", date_input))} +
+  geom_text_repel(data = map_lab_data, aes(label = location), max.overlaps = 7,
+            size=3, min.segment.length = 2, colour = 'black',
+            segment.alpha = 0,segment.color = 'grey50') +
+  theme_map() +
+  theme(    axis.title=element_blank(),
+            axis.text=element_blank(),
+            axis.ticks=element_blank(),
+            plot.title = element_text(hjust = 0.5, size = 14, family="serif"),
+            legend.text=element_text(size=10,family="serif"),
+            legend.title=element_text(size=10,family="serif"),
+            legend.position="right",
+            legend.direction = "vertical")
+   
+  return(map)
+}
+```
+
+# **World Countries - 2021-12-30**
+
+### Maps
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggarrange(
+country_map(df_world_20211230,'2021-12-30',"max_stringency","World",'no'),
+country_map(df_world_20211230,'2021-12-30',"total_deaths_per_million","World",'no'),
+country_map(df_world_20211230,'2021-12-30',"total_restrictions","World",'no'), 
+country_map(df_world_20211230,'2021-12-30',"total_restrictions_cubed","World",'no'), nrow = 2, ncol = 2) %>% 
+annotate_figure(top = text_grob(paste0("World Map ", "2021-12-30"), color = "black", 
+          face = "bold", size = 16))
+```
+
+### Correlations
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+corr_table(df_world_20211230)
+corr_plot(df_world_20211230)
+corr_matrix(df_world_20211230)
+```
+
+### Scatter plots - total covid deaths per million vs. stringency / total_restrictions cubed
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggarrange(
+country_scatter(df_world_20211230,"max_stringency",'no'),
+country_scatter(df_world_20211230,"total_restrictions_cubed",'no'), ncol = 1, common.legend = T, legend = c("right")) %>% 
+  annotate_figure(map, top = text_grob(paste0("Covid deaths vs. restrictions ", "2021-12-30"), color = "black", 
+          face = "bold", size = 16))
+
+ggarrange(
+country_scatter(df_world_20211230,"max_stringency",'no','no','fac'),
+country_scatter(df_world_20211230,"total_restrictions_cubed",'no','no','fac'), ncol = 1, common.legend = T, legend = c("right")) %>% 
+  annotate_figure(map, top = text_grob(paste0("Covid deaths vs. restrictions ", "2021-12-30"), color = "black", 
+          face = "bold", size = 16))
+```
+
+### Regression
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+mlr_table_si(df_world_20211230)
+mlr_table_res(df_world_20211230)
+mlr_table_res_cubed(df_world_20211230)
+```
+
+
+#### Countries in the analysis
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+# List of countries in analysis
+df_world_20211230 %>% select(location) %>% 
+  kbl(caption = paste0("Countries in analysis (n = ", length(df_world_20211230 %>% select(location) %>% pull()),")")) %>% 
+  kable_classic(full_width = F) 
+# Number of countries in analysis 
+```
+
+
+### Data sources:
+* [Our World in Data](https://covid.ourworldindata.org/data/owid-covid-data.csv)
+* [The Oxford COVID-19 Government Response Tracker](https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv)
+* [Average latitude & longitude for Countries](https://raw.githubusercontent.com/albertyw/avenews/master/old/data/average-latitude-longitude-countries.csv)
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+rm(list=setdiff(ls()," "))
+```
+
