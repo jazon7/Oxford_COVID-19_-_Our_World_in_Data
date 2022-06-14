@@ -298,5 +298,7 @@ rm(list=setdiff(ls(), c("df_large","df_small",
                         "df_europe_20211230_large",
                         "df_europe_20211230_small",
                         "df_europe_20220520_large",
-                        "df_europe_20220520_small")))
+                        "df_europe_20220520_small",
+                        "df_world_20211230_large",
+                        "df_world_20211230_small")))
 ```
