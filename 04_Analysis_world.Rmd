@@ -21,7 +21,7 @@ df_world_20211230 <- readRDS("OxOw_Extraction_world_20211230_large.rds")
 
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-cor_variables <- c("location","iso_code","date","continent","total_cases_per_million","total_deaths_per_million","people_fully_vaccinated_per_hundred","population_density","median_age","aged_65_older","gdp_per_capita","extreme_poverty","cardiovasc_death_rate","diabetes_prevalence","female_smokers","male_smokers","life_expectancy","human_development_index","latitude","longitude","total_restrictions","total_restrictions_cubed","first_death_date","date_first_death_days","max_stringency","obesity_prevalence")
+cor_variables <- c("location","iso_code","date","continent","total_cases_per_million","total_deaths_per_million","people_fully_vaccinated_per_hundred","population_density","median_age","gdp_per_capita","extreme_poverty","cardiovasc_death_rate","diabetes_prevalence","life_expectancy","human_development_index","latitude","total_restrictions","total_restrictions_cubed","first_death_date","date_first_death_days","max_stringency","obesity_prevalence")
 
 df_world_20211230 <- df_world_20211230 %>% select(cor_variables)
 #replace -inf values with NA
@@ -187,7 +187,7 @@ country_map <- function(df,dt,fill_var,title,include_title){
   scale_fill_viridis_c(option = "C", direction = -1) +
   labs(fill = fill_var) +
   {if(Switch)ggtitle(paste0(title, " Map ", date_input))} +
-  geom_text_repel(data = map_lab_data, aes(label = location), max.overlaps = 7,
+  geom_text_repel(data = map_lab_data, aes(label = location), max.overlaps = 5,
             size=3, min.segment.length = 2, colour = 'black',
             segment.alpha = 0,segment.color = 'grey50') +
   theme_map() +
@@ -226,6 +226,12 @@ corr_matrix(df_world_20211230)
 
 ### Scatter plots - total covid deaths per million vs. stringency / total_restrictions cubed
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggarrange(
+country_scatter(df_world_20211230,"median_age",'no'),
+country_scatter(df_world_20211230,"obesity_prevalence",'no'), ncol = 1, common.legend = T, legend = c("right")) %>% 
+  annotate_figure(map, top = text_grob(paste0("Covid deaths vs. age / obesity ", "2021-12-30"), color = "black", 
+          face = "bold", size = 16))
+
 ggarrange(
 country_scatter(df_world_20211230,"max_stringency",'no'),
 country_scatter(df_world_20211230,"total_restrictions_cubed",'no'), ncol = 1, common.legend = T, legend = c("right")) %>% 

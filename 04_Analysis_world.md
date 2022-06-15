@@ -50,14 +50,6 @@ cardiovasc_death_rate
 </tr>
 <tr>
 <td style="text-align:left;">
-longitude
-</td>
-<td style="text-align:right;">
--0.1392775
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 population_density
 </td>
 <td style="text-align:right;">
@@ -114,14 +106,6 @@ gdp_per_capita
 </tr>
 <tr>
 <td style="text-align:left;">
-male_smokers
-</td>
-<td style="text-align:right;">
-0.2162957
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 latitude
 </td>
 <td style="text-align:right;">
@@ -154,22 +138,6 @@ human_development_index
 </tr>
 <tr>
 <td style="text-align:left;">
-aged_65_older
-</td>
-<td style="text-align:right;">
-0.5537161
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-female_smokers
-</td>
-<td style="text-align:right;">
-0.5557223
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 median_age
 </td>
 <td style="text-align:right;">
@@ -191,7 +159,7 @@ total_cases_per_million
 
 ### Scatter plots - total covid deaths per million vs. stringency / total_restrictions cubed
 
-![](04_Analysis_world_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](04_Analysis_world_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
 
 ### Regression
 
