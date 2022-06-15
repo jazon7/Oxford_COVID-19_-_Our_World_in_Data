@@ -98,6 +98,14 @@ life_expectancy
 </tr>
 <tr>
 <td style="text-align:left;">
+obesity_prevalence
+</td>
+<td style="text-align:right;">
+0.0447683
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 extreme_poverty
 </td>
 <td style="text-align:right;">
@@ -441,7 +449,7 @@ total_deaths_per_million
 people_fully_vaccinated_per_hundred
 </td>
 <td style="text-align:right;">
--0.7221438
+-0.7221208
 </td>
 </tr>
 <tr>
@@ -497,7 +505,7 @@ diabetes_prevalence
 total_restrictions
 </td>
 <td style="text-align:right;">
-0.1698663
+0.1746068
 </td>
 </tr>
 <tr>
@@ -529,7 +537,15 @@ aged_65_older
 total_restrictions_cubed
 </td>
 <td style="text-align:right;">
-0.2404483
+0.2446492
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+obesity_prevalence
+</td>
+<td style="text-align:right;">
+0.2580066
 </td>
 </tr>
 <tr>
@@ -750,7 +766,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1941.7 -471.0 -140.2 517.0 2816.1
+-1945.0 -463.4 -132.5 519.8 2823.3
 </td>
 </tr>
 <tr>
@@ -769,22 +785,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -271.9398 1233.4326 -0.220 0.827
+(Intercept) -300.2983 1231.3040 -0.244 0.809
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions 0.3574 0.2232 1.601 0.120
+total_restrictions 0.3628 0.2222 1.632 0.113
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-population_density -0.2535 1.9975 -0.127 0.900
+population_density -0.2587 1.9929 -0.130 0.898
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-date_first_death_days 36.0393 22.6349 1.592 0.122
+date_first_death_days 36.2660 22.5944 1.605 0.119
 </td>
 </tr>
 <tr>
@@ -793,17 +809,17 @@ date_first_death_days 36.0393 22.6349 1.592 0.122
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 1092 on 29 degrees of freedom
+Residual standard error: 1090 on 29 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.1141, Adjusted R-squared: 0.0225
+Multiple R-squared: 0.117, Adjusted R-squared: 0.02567
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 1.246 on 3 and 29 DF, p-value: 0.3113
+F-statistic: 1.281 on 3 and 29 DF, p-value: 0.2994
 </td>
 </tr>
 <tr>
@@ -841,7 +857,7 @@ total_deaths_per_million
 people_fully_vaccinated_per_hundred
 </td>
 <td style="text-align:right;">
--0.7388776
+-0.7388693
 </td>
 </tr>
 <tr>
@@ -905,7 +921,7 @@ diabetes_prevalence
 total_restrictions
 </td>
 <td style="text-align:right;">
-0.1518520
+0.1565408
 </td>
 </tr>
 <tr>
@@ -921,7 +937,7 @@ date_first_death_days
 total_restrictions_cubed
 </td>
 <td style="text-align:right;">
-0.2278267
+0.2324534
 </td>
 </tr>
 <tr>
@@ -954,6 +970,14 @@ extreme_poverty
 </td>
 <td style="text-align:right;">
 0.2540468
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+obesity_prevalence
+</td>
+<td style="text-align:right;">
+0.2801818
 </td>
 </tr>
 <tr>
@@ -1150,7 +1174,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--2030.3 -613.8 -199.8 502.2 3254.6
+-2032.6 -607.0 -204.1 505.2 3262.0
 </td>
 </tr>
 <tr>
@@ -1169,22 +1193,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 88.6112 1324.1476 0.067 0.947
+(Intercept) 63.3039 1321.3391 0.048 0.962
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions 0.3345 0.2092 1.599 0.121
+total_restrictions 0.3386 0.2080 1.628 0.114
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-population_density -1.0599 2.2336 -0.475 0.639
+population_density -1.0628 2.2286 -0.477 0.637
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-date_first_death_days 39.8655 24.9225 1.600 0.121
+date_first_death_days 40.0537 24.8802 1.610 0.118
 </td>
 </tr>
 <tr>
@@ -1193,17 +1217,17 @@ date_first_death_days 39.8655 24.9225 1.600 0.121
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 1221 on 29 degrees of freedom
+Residual standard error: 1219 on 29 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.1244, Adjusted R-squared: 0.03381
+Multiple R-squared: 0.127, Adjusted R-squared: 0.03664
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 1.373 on 3 and 29 DF, p-value: 0.2706
+F-statistic: 1.406 on 3 and 29 DF, p-value: 0.2611
 </td>
 </tr>
 <tr>
@@ -1261,7 +1285,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1209.1 -230.4 -125.4 309.3 832.6
+-1204.9 -225.5 -135.2 301.7 836.7
 </td>
 </tr>
 <tr>
@@ -1280,27 +1304,27 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 26744.46858 4922.02183 5.434 0.0000552
+(Intercept) 26914.84516 4885.10990 5.510 0.0000476
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions_cubed 0.02117 0.01293 1.636 0.12126
+total_restrictions_cubed 0.02163 0.01274 1.698 0.10891
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -22.61953 12.58687 -1.797 0.09122
+people_fully_vaccinated_per_hundred -22.06332 12.45074 -1.772 0.09543
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-life_expectancy -247.08346 62.70359 -3.940 0.00117
+life_expectancy -250.15345 62.50803 -4.002 0.00103
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-latitude -65.98226 24.30157 -2.715 0.01529
+latitude -65.53463 24.07011 -2.723 0.01506
 </td>
 </tr>
 <tr>
@@ -1348,7 +1372,7 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 495.7 on 16 degrees of freedom
+Residual standard error: 493.1 on 16 degrees of freedom
 </td>
 </tr>
 <tr>
@@ -1358,12 +1382,12 @@ Residual standard error: 495.7 on 16 degrees of freedom
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.8334, Adjusted R-squared: 0.7918
+Multiple R-squared: 0.8352, Adjusted R-squared: 0.794
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 20.01 on 4 and 16 DF, p-value: 0.000004549
+F-statistic: 20.27 on 4 and 16 DF, p-value: 0.000004179
 </td>
 </tr>
 <tr>
@@ -1563,3 +1587,4 @@ United Kingdom
     Tracker](https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv)
 -   [Average latitude & longitude for
     Countries](https://raw.githubusercontent.com/albertyw/avenews/master/old/data/average-latitude-longitude-countries.csv)
+-   [Obesity Data](https://github.com/camminady/overweight)

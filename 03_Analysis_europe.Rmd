@@ -29,7 +29,7 @@ df_europe_20220520 <- readRDS("OxOw_Extraction_europe_20220520_large.rds") %>% f
 ```
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-cor_variables <- c("location","iso_code","date","continent","total_cases_per_million","total_deaths_per_million","people_fully_vaccinated_per_hundred","population_density","median_age","aged_65_older","gdp_per_capita","extreme_poverty","cardiovasc_death_rate","diabetes_prevalence","female_smokers","male_smokers","life_expectancy","human_development_index","latitude","longitude","total_restrictions","total_restrictions_cubed","first_death_date","date_first_death_days","max_stringency")
+cor_variables <- c("location","iso_code","date","continent","total_cases_per_million","total_deaths_per_million","people_fully_vaccinated_per_hundred","population_density","median_age","aged_65_older","gdp_per_capita","extreme_poverty","cardiovasc_death_rate","diabetes_prevalence","female_smokers","male_smokers","life_expectancy","human_development_index","latitude","longitude","total_restrictions","total_restrictions_cubed","first_death_date","date_first_death_days","max_stringency","obesity_prevalence")
 
 df_europe_20220520 <- df_europe_20220520  %>% select(cor_variables)
 df_europe_20211230 <- df_europe_20211230  %>% select(cor_variables)
@@ -112,11 +112,10 @@ country_scatter <- function(df_input, x_metric, title) {
   
   max_x <- df_input %>% select(x_metric) %>% max(na.rm = T)
   max_y <- df_input %>% select('total_deaths_per_million') %>% max(na.rm = T)
+  
   if (title == 'yes') {Switch = T}
   else {Switch = F}
-  
-  if (equation == 'yes') {Switch = T}
-  else {Switch = F}
+
 
   date <- df_input %>% select(date) %>% filter(row_number()==1) %>% pull()
   plot <- df_input %>% 
@@ -127,10 +126,10 @@ ggplot(aes_string(x = x_metric, y = "total_deaths_per_million", label = "locatio
         scale_size_continuous(range = c(2,10)) +
         scale_color_viridis(discrete = TRUE, option = 'C') +
         geom_text_repel(max.overlaps = 10, size = 3) +
-        {if(eqution)annotate("text", label= paste0("R = ", round(with(df_input,
+        annotate("text", label= paste0("R = ", round(with(df_input,
                 cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$estimate, 2),", p = ", 
                 round(with(df_input,cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$p.value, 3),
-                ", n = ", nrow(df_input)),x = min_x + (0.10 * (max_x - min_x)), y = max_y, color = "red", size = 3)} +
+                ", n = ", nrow(df_input)),x = min_x + (0.10 * (max_x - min_x)), y = max_y, color = "red", size = 3) +
         labs(color = "Continent") +
         ylab("Total deaths per million") +
         xlab(x_metric) +
@@ -327,6 +326,7 @@ lally_countries %>% as_tibble() %>%
 * [Our World in Data](https://covid.ourworldindata.org/data/owid-covid-data.csv)
 * [The Oxford COVID-19 Government Response Tracker](https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv)
 * [Average latitude & longitude for Countries](https://raw.githubusercontent.com/albertyw/avenews/master/old/data/average-latitude-longitude-countries.csv)
+* [Obesity Data](https://github.com/camminady/overweight)
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
 rm(list=setdiff(ls()," "))

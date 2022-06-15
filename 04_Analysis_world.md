@@ -37,15 +37,7 @@ extreme_poverty
 date_first_death_days
 </td>
 <td style="text-align:right;">
--0.1840164
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-longitude
-</td>
-<td style="text-align:right;">
--0.1575986
+-0.1819080
 </td>
 </tr>
 <tr>
@@ -53,7 +45,15 @@ longitude
 cardiovasc_death_rate
 </td>
 <td style="text-align:right;">
--0.1492579
+-0.1502395
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+longitude
+</td>
+<td style="text-align:right;">
+-0.1392775
 </td>
 </tr>
 <tr>
@@ -61,7 +61,7 @@ cardiovasc_death_rate
 population_density
 </td>
 <td style="text-align:right;">
--0.0510486
+-0.0882582
 </td>
 </tr>
 <tr>
@@ -69,7 +69,7 @@ population_density
 people_fully_vaccinated_per_hundred
 </td>
 <td style="text-align:right;">
-0.0436857
+0.0520170
 </td>
 </tr>
 <tr>
@@ -77,7 +77,7 @@ people_fully_vaccinated_per_hundred
 diabetes_prevalence
 </td>
 <td style="text-align:right;">
-0.0636243
+0.0663118
 </td>
 </tr>
 <tr>
@@ -85,7 +85,7 @@ diabetes_prevalence
 total_restrictions_cubed
 </td>
 <td style="text-align:right;">
-0.0789945
+0.0833186
 </td>
 </tr>
 <tr>
@@ -93,7 +93,7 @@ total_restrictions_cubed
 total_restrictions
 </td>
 <td style="text-align:right;">
-0.1665875
+0.1706894
 </td>
 </tr>
 <tr>
@@ -101,7 +101,7 @@ total_restrictions
 max_stringency
 </td>
 <td style="text-align:right;">
-0.1931226
+0.1836262
 </td>
 </tr>
 <tr>
@@ -109,7 +109,7 @@ max_stringency
 gdp_per_capita
 </td>
 <td style="text-align:right;">
-0.2108108
+0.1968093
 </td>
 </tr>
 <tr>
@@ -125,7 +125,15 @@ male_smokers
 latitude
 </td>
 <td style="text-align:right;">
-0.3733920
+0.3909777
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+obesity_prevalence
+</td>
+<td style="text-align:right;">
+0.4336849
 </td>
 </tr>
 <tr>
@@ -133,7 +141,7 @@ latitude
 life_expectancy
 </td>
 <td style="text-align:right;">
-0.4501631
+0.4578609
 </td>
 </tr>
 <tr>
@@ -141,7 +149,7 @@ life_expectancy
 human_development_index
 </td>
 <td style="text-align:right;">
-0.5105462
+0.5177075
 </td>
 </tr>
 <tr>
@@ -149,7 +157,7 @@ human_development_index
 aged_65_older
 </td>
 <td style="text-align:right;">
-0.5466536
+0.5537161
 </td>
 </tr>
 <tr>
@@ -165,7 +173,7 @@ female_smokers
 median_age
 </td>
 <td style="text-align:right;">
-0.5573231
+0.5787018
 </td>
 </tr>
 <tr>
@@ -173,7 +181,7 @@ median_age
 total_cases_per_million
 </td>
 <td style="text-align:right;">
-0.6706947
+0.6577764
 </td>
 </tr>
 </tbody>
@@ -231,7 +239,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1661.2 -430.5 -116.5 370.7 5034.1
+-1719.3 -446.5 -107.0 399.7 5033.0
 </td>
 </tr>
 <tr>
@@ -250,17 +258,17 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -2227.915 520.107 -4.284 0.0000321491392212 \*\*\*
+(Intercept) -2172.607 516.491 -4.206 0.00004430563881148 \*\*\*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-max_stringency 14.486 5.519 2.625 0.00954 \*\*
+max_stringency 12.968 5.501 2.357 0.0197 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 64.386 7.676 8.388 0.0000000000000286 \*\*\*
+median_age 67.549 7.772 8.691 0.00000000000000555 \*\*\*
 </td>
 </tr>
 <tr>
@@ -279,22 +287,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 896.3 on 155 degrees of freedom
+Residual standard error: 887.7 on 151 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(12 observations deleted due to missingness)
+(7 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.3394, Adjusted R-squared: 0.3309
+Multiple R-squared: 0.3579, Adjusted R-squared: 0.3494
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 39.82 on 2 and 155 DF, p-value: 0.00000000000001105
+F-statistic: 42.09 on 2 and 151 DF, p-value: 0.000000000000002963
 </td>
 </tr>
 <tr>
@@ -347,7 +355,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1788.8 -476.3 -104.4 314.8 4899.4
+-1876.5 -455.5 -131.4 318.1 4914.3
 </td>
 </tr>
 <tr>
@@ -366,17 +374,17 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -1547.02029 321.64790 -4.810 0.0000035167563162 \*\*\*
+(Intercept) -1566.94162 322.01218 -4.866 0.00000280561788997 \*\*\*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions 0.13450 0.05352 2.513 0.013 \*
+total_restrictions 0.12039 0.05368 2.243 0.0263 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 64.74209 7.63049 8.485 0.0000000000000152 \*\*\*
+median_age 67.93661 7.72046 8.800 0.00000000000000272 \*\*\*
 </td>
 </tr>
 <tr>
@@ -395,22 +403,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 895 on 157 degrees of freedom
+Residual standard error: 886.2 on 153 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(10 observations deleted due to missingness)
+(5 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.3373, Adjusted R-squared: 0.3288
+Multiple R-squared: 0.3561, Adjusted R-squared: 0.3477
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 39.95 on 2 and 157 DF, p-value: 0.000000000000009442
+F-statistic: 42.3 on 2 and 153 DF, p-value: 0.000000000000002378
 </td>
 </tr>
 <tr>
@@ -463,7 +471,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1888.9 -446.7 -92.6 349.0 4889.8
+-1912.8 -446.0 -103.2 353.8 4908.5
 </td>
 </tr>
 <tr>
@@ -482,17 +490,17 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -1444.725953 300.958291 -4.800 0.00000366134907519
+(Intercept) -1468.971378 300.645647 -4.886 0.000002570560996409
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions_cubed 0.013178 0.005453 2.416 0.0168
+total_restrictions_cubed 0.011647 0.005454 2.136 0.0343
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 67.427630 7.682247 8.777 0.00000000000000268
+median_age 70.281322 7.754335 9.063 0.000000000000000567
 </td>
 </tr>
 <tr>
@@ -530,22 +538,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 896.3 on 157 degrees of freedom
+Residual standard error: 887.5 on 153 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(10 observations deleted due to missingness)
+(5 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.3353, Adjusted R-squared: 0.3269
+Multiple R-squared: 0.3541, Adjusted R-squared: 0.3457
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 39.6 on 2 and 157 DF, p-value: 0.00000000000001187
+F-statistic: 41.95 on 2 and 153 DF, p-value: 0.000000000000002987
 </td>
 </tr>
 <tr>
@@ -559,7 +567,7 @@ F-statistic: 39.6 on 2 and 157 DF, p-value: 0.00000000000001187
 
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-Countries in analysis (n = 170)
+Countries in analysis (n = 161)
 </caption>
 <thead>
 <tr>
@@ -597,11 +605,6 @@ Angola
 <tr>
 <td style="text-align:left;">
 Argentina
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aruba
 </td>
 </tr>
 <tr>
@@ -657,11 +660,6 @@ Belize
 <tr>
 <td style="text-align:left;">
 Benin
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Bermuda
 </td>
 </tr>
 <tr>
@@ -881,11 +879,6 @@ Greece
 </tr>
 <tr>
 <td style="text-align:left;">
-Greenland
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Grenada
 </td>
 </tr>
@@ -912,11 +905,6 @@ Haiti
 <tr>
 <td style="text-align:left;">
 Honduras
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Hong Kong
 </td>
 </tr>
 <tr>
@@ -1026,11 +1014,6 @@ Liberia
 </tr>
 <tr>
 <td style="text-align:left;">
-Liechtenstein
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Lithuania
 </td>
 </tr>
@@ -1082,11 +1065,6 @@ Mexico
 <tr>
 <td style="text-align:left;">
 Moldova
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Monaco
 </td>
 </tr>
 <tr>
@@ -1211,11 +1189,6 @@ Rwanda
 </tr>
 <tr>
 <td style="text-align:left;">
-San Marino
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Saudi Arabia
 </td>
 </tr>
@@ -1286,11 +1259,6 @@ Sri Lanka
 </tr>
 <tr>
 <td style="text-align:left;">
-Sudan
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Suriname
 </td>
 </tr>
@@ -1307,11 +1275,6 @@ Switzerland
 <tr>
 <td style="text-align:left;">
 Syria
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Taiwan
 </td>
 </tr>
 <tr>
@@ -1430,3 +1393,4 @@ Zimbabwe
     Tracker](https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv)
 -   [Average latitude & longitude for
     Countries](https://raw.githubusercontent.com/albertyw/avenews/master/old/data/average-latitude-longitude-countries.csv)
+-   [Obesity Data](https://github.com/camminady/overweight)

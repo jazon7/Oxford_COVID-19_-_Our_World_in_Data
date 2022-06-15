@@ -63,6 +63,12 @@ download_csv('average-latitude-longitude-countries.csv',
 
     ## [1] "average-latitude-longitude-countries.csv is up to date"
 
+``` r
+download_csv("owid-obesity.csv","https://raw.githubusercontent.com/camminady/overweight/master/share-of-adults-defined-as-obese.csv")
+```
+
+    ## [1] "owid-obesity.csv is up to date"
+
 # Import raw data into data frames
 
 ``` r
@@ -105,11 +111,29 @@ ox_country_list <- ox_df %>% filter(date == "2020-12-30") %>% select(location,is
 cv_country_list <- cv_raw %>%  filter(date == "2020-12-30") %>%  select(location,iso_code)
 lat_country_list <- lat$location %>% as_tibble()
 
+obe <- fread("owid-obesity.csv",stringsAsFactors = TRUE) %>% as_tibble()
+names(obe)
+```
+
+    ## [1] "Entity"                                                                                                                                         
+    ## [2] "Code"                                                                                                                                           
+    ## [3] "Year"                                                                                                                                           
+    ## [4] "Indicator:Prevalence of obesity among adults, BMI &GreaterEqual; 30 (age-standardized estimate) (%) - Age Group:18+  years - Sex:Both sexes (%)"
+
+``` r
+obe <- obe %>% 
+  filter(Year == max(obe$Year)) %>% 
+  rename(obesity_prevalence = `Indicator:Prevalence of obesity among adults, BMI &GreaterEqual; 30 (age-standardized estimate) (%) - Age Group:18+  years - Sex:Both sexes (%)`,
+                                                        location = Entity, iso_code = Code) %>% 
+  select(-c("Year","location"))
 #merge oxford and owid data
 df <- merge(cv_raw, ox_df, by = c('iso_code','location','date'))
 
 #merge main dataframe with latitude data frame
 df <- merge(df, lat, by = 'location')
+
+#merge main dataframe with obesity data frame
+df <- merge(df, obe, by = 'iso_code')
 
 #create new column removing negative sign form latitude / long data
 df <- df %>% mutate(latitude = abs(lat_raw), longitude = abs(long_raw))
@@ -216,14 +240,23 @@ df <- df %>% mutate(date_first_death_days = as.numeric(difftime(first_death_date
 #find max stringency
 df_max_si <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,max(df$date) %>% as.character()))
 
+df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = 
+find_max_stringency(location,"2020-12-30"))
+
 df_max_si_europe_20201230 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2020-12-30"))
 
 df_max_si_europe_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2021-12-30"))
 
 df_max_si_europe_20220520 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2022-05-20"))
 
+
+df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = 
+find_max_stringency(location,"2021-12-30"))
+
+
 df_large <- merge(df, df_max_si, by = 'location')
 
+#europe data
 df_europe <- df_continent(df, "Europe")
 df_europe_20201230 <- df_date(df_europe,"2020-12-30")
 df_europe_20201230_large <- merge(df_europe_20201230, df_max_si_europe_20201230, by = 'location')
@@ -233,19 +266,27 @@ df_europe_20211230_large <- merge(df_europe_20211230, df_max_si_europe_20211230,
 
 df_europe_20220520 <- df_date(df_europe,"2022-05-20")
 df_europe_20220520_large <- merge(df_europe_20220520, df_max_si_europe_20220520, by = 'location')
+
+#world data
+df_world_20211230 <- df_date(df,"2021-12-30")
+df_world_20211230_large <- merge(df_world_20211230, df_max_si_world_20211230, by = 'location')
 ```
 
 # Create filtered version of data for exporting
 
 ``` r
-#create filtered data frame to output to  csv
+#create filtered data frame to output to csv
 
-small_column_list <- c("iso_code","continent","location","date","c2_workplace_closing","c2_workplace_closing_cubed","cum_c2_workplace_closing","cum_c2_workplace_closing_cubed","c6_stay_at_home_requirements","c6_stay_at_home_requirements_cubed","cum_c6_stay_at_home_requirements","cum_c6_stay_at_home_requirements_cubed","c7_restrictions_on_internal_movement","c7_restrictions_on_internal_movement_cubed","cum_c7_restrictions_on_internal_movement","cum_c7_restrictions_on_internal_movement_cubed","h6_facial_coverings","h6_facial_coverings_cubed","cum_h6_facial_coverings","cum_h6_facial_coverings_cubed","total_restrictions","total_restrictions_cubed","new_deaths_per_million","total_deaths_per_million","stringency_index_for_display","government_response_index_for_display","containment_health_index_for_display","economic_support_index_for_display","date_first_death_days","max_stringency","population_density")
+small_column_list <- c("iso_code","continent","location","date","c2_workplace_closing","c2_workplace_closing_cubed","cum_c2_workplace_closing","cum_c2_workplace_closing_cubed","c6_stay_at_home_requirements","c6_stay_at_home_requirements_cubed","cum_c6_stay_at_home_requirements","cum_c6_stay_at_home_requirements_cubed","c7_restrictions_on_internal_movement","c7_restrictions_on_internal_movement_cubed","cum_c7_restrictions_on_internal_movement","cum_c7_restrictions_on_internal_movement_cubed","h6_facial_coverings","h6_facial_coverings_cubed","cum_h6_facial_coverings","cum_h6_facial_coverings_cubed","total_restrictions","total_restrictions_cubed","new_deaths_per_million","total_deaths_per_million","stringency_index_for_display","government_response_index_for_display","containment_health_index_for_display","economic_support_index_for_display","date_first_death_days","max_stringency","population_density","obesity_prevalence")
 
 df_small <- df_large %>% select(small_column_list)
+
 df_europe_20201230_small <- df_europe_20201230_large %>% select(small_column_list) %>% select(-c("new_deaths_per_million")) 
 df_europe_20211230_small <- df_europe_20211230_large %>% select(small_column_list) %>% select(-c("new_deaths_per_million")) 
 df_europe_20220520_small <- df_europe_20220520_large %>% select(small_column_list) %>% select(-c("new_deaths_per_million"))
+
+df_world_20211230_small <- df_world_20211230_large %>% 
+select(small_column_list) %>% select(-c("new_deaths_per_million"))
 ```
 
 ## Sort data by country and date
@@ -263,6 +304,9 @@ df_europe_20211230_small <- df_europe_20211230_small %>% arrange(location,date)
 
 df_europe_20220520_large <- df_europe_20220520_large %>% arrange(location,date)
 df_europe_20220520_small <- df_europe_20220520_small %>% arrange(location,date)
+
+df_world_20211230_large <- df_world_20211230_large %>% arrange(location,date)
+df_world_20211230_small <- df_world_20211230_small %>% arrange(location,date)
 ```
 
 ## Save data as RDS files
@@ -279,6 +323,9 @@ saveRDS(df_europe_20211230_small, file = "OxOw_Extraction_europe_20211230_small.
 
 saveRDS(df_europe_20220520_large, file = "OxOw_Extraction_europe_20220520_large.rds")
 saveRDS(df_europe_20220520_small, file = "OxOw_Extraction_europe_20220520_small.rds")
+
+saveRDS(df_world_20211230_large, file = "OxOw_Extraction_world_20211230_large.rds")
+saveRDS(df_world_20211230_small, file = "OxOw_Extraction_world_20211230_small.rds")
 ```
 
 ## Cleanup workspace
@@ -291,5 +338,7 @@ rm(list=setdiff(ls(), c("df_large","df_small",
                         "df_europe_20211230_large",
                         "df_europe_20211230_small",
                         "df_europe_20220520_large",
-                        "df_europe_20220520_small")))
+                        "df_europe_20220520_small",
+                        "df_world_20211230_large",
+                        "df_world_20211230_small")))
 ```

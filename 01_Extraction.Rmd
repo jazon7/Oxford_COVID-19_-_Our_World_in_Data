@@ -51,6 +51,8 @@ download_csv('OxCGRT_latest.csv',
              "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv")
 download_csv('average-latitude-longitude-countries.csv',
              "https://raw.githubusercontent.com/albertyw/avenews/master/old/data/average-latitude-longitude-countries.csv")
+
+download_csv("owid-obesity.csv","https://raw.githubusercontent.com/camminady/overweight/master/share-of-adults-defined-as-obese.csv")
 ```
 
 # Import raw data into data frames
@@ -94,11 +96,21 @@ ox_country_list <- ox_df %>% filter(date == "2020-12-30") %>% select(location,is
 cv_country_list <- cv_raw %>%  filter(date == "2020-12-30") %>%  select(location,iso_code)
 lat_country_list <- lat$location %>% as_tibble()
 
+obe <- fread("owid-obesity.csv",stringsAsFactors = TRUE) %>% as_tibble()
+names(obe)
+obe <- obe %>% 
+  filter(Year == max(obe$Year)) %>% 
+  rename(obesity_prevalence = `Indicator:Prevalence of obesity among adults, BMI &GreaterEqual; 30 (age-standardized estimate) (%) - Age Group:18+  years - Sex:Both sexes (%)`,
+                                                        location = Entity, iso_code = Code) %>% 
+  select(-c("Year","location"))
 #merge oxford and owid data
 df <- merge(cv_raw, ox_df, by = c('iso_code','location','date'))
 
 #merge main dataframe with latitude data frame
 df <- merge(df, lat, by = 'location')
+
+#merge main dataframe with obesity data frame
+df <- merge(df, obe, by = 'iso_code')
 
 #create new column removing negative sign form latitude / long data
 df <- df %>% mutate(latitude = abs(lat_raw), longitude = abs(long_raw))
@@ -238,7 +250,7 @@ df_world_20211230_large <- merge(df_world_20211230, df_max_si_world_20211230, by
 ```{r}
 #create filtered data frame to output to csv
 
-small_column_list <- c("iso_code","continent","location","date","c2_workplace_closing","c2_workplace_closing_cubed","cum_c2_workplace_closing","cum_c2_workplace_closing_cubed","c6_stay_at_home_requirements","c6_stay_at_home_requirements_cubed","cum_c6_stay_at_home_requirements","cum_c6_stay_at_home_requirements_cubed","c7_restrictions_on_internal_movement","c7_restrictions_on_internal_movement_cubed","cum_c7_restrictions_on_internal_movement","cum_c7_restrictions_on_internal_movement_cubed","h6_facial_coverings","h6_facial_coverings_cubed","cum_h6_facial_coverings","cum_h6_facial_coverings_cubed","total_restrictions","total_restrictions_cubed","new_deaths_per_million","total_deaths_per_million","stringency_index_for_display","government_response_index_for_display","containment_health_index_for_display","economic_support_index_for_display","date_first_death_days","max_stringency","population_density")
+small_column_list <- c("iso_code","continent","location","date","c2_workplace_closing","c2_workplace_closing_cubed","cum_c2_workplace_closing","cum_c2_workplace_closing_cubed","c6_stay_at_home_requirements","c6_stay_at_home_requirements_cubed","cum_c6_stay_at_home_requirements","cum_c6_stay_at_home_requirements_cubed","c7_restrictions_on_internal_movement","c7_restrictions_on_internal_movement_cubed","cum_c7_restrictions_on_internal_movement","cum_c7_restrictions_on_internal_movement_cubed","h6_facial_coverings","h6_facial_coverings_cubed","cum_h6_facial_coverings","cum_h6_facial_coverings_cubed","total_restrictions","total_restrictions_cubed","new_deaths_per_million","total_deaths_per_million","stringency_index_for_display","government_response_index_for_display","containment_health_index_for_display","economic_support_index_for_display","date_first_death_days","max_stringency","population_density","obesity_prevalence")
 
 df_small <- df_large %>% select(small_column_list)
 
