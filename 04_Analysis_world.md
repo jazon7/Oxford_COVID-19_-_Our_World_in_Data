@@ -304,7 +304,7 @@ lm(formula = total_deaths_per_million \~ total_restrictions +
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age, data = df)
+median_age + people_fully_vaccinated_per_hundred, data = df)
 </td>
 </tr>
 <tr>
@@ -323,7 +323,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1876.5 -455.5 -131.4 318.1 4914.3
+-1739.1 -756.5 -162.0 655.0 4973.0
 </td>
 </tr>
 <tr>
@@ -342,17 +342,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -1566.94162 322.01218 -4.866 0.00000280561788997 \*\*\*
+(Intercept) -2211.8821 982.2511 -2.252 0.0276 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions 0.12039 0.05368 2.243 0.0263 \*
+total_restrictions 0.2511 0.1266 1.983 0.0514 .
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 67.93661 7.72046 8.800 0.00000000000000272 \*\*\*
+median_age 100.9273 21.8382 4.622 0.0000175 \*\*\*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+people_fully_vaccinated_per_hundred -18.0050 7.5909 -2.372 0.0205 \*
 </td>
 </tr>
 <tr>
@@ -371,22 +376,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 886.2 on 153 degrees of freedom
+Residual standard error: 1106 on 68 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(5 observations deleted due to missingness)
+(89 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.3561, Adjusted R-squared: 0.3477
+Multiple R-squared: 0.2418, Adjusted R-squared: 0.2084
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 42.3 on 2 and 153 DF, p-value: 0.000000000000002378
+F-statistic: 7.23 on 3 and 68 DF, p-value: 0.0002787
 </td>
 </tr>
 <tr>
@@ -420,7 +425,7 @@ lm(formula = total_deaths_per_million \~ total_restrictions_cubed +
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age, data = df)
+median_age + people_fully_vaccinated_per_hundred, data = df)
 </td>
 </tr>
 <tr>
@@ -439,7 +444,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1912.8 -446.0 -103.2 353.8 4908.5
+-1921.1 -742.3 -169.5 669.0 4967.0
 </td>
 </tr>
 <tr>
@@ -458,17 +463,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -1468.971378 300.645647 -4.886 0.000002570560996409
+(Intercept) -1773.97844 801.02301 -2.215 0.0301
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions_cubed 0.011647 0.005454 2.136 0.0343
+total_restrictions_cubed 0.02224 0.01085 2.050 0.0442
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 70.281322 7.754335 9.063 0.000000000000000567
+median_age 101.40302 21.79127 4.653 0.0000156
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+people_fully_vaccinated_per_hundred -18.11355 7.57964 -2.390 0.0196
 </td>
 </tr>
 <tr>
@@ -477,7 +487,7 @@ median_age 70.281322 7.754335 9.063 0.000000000000000567
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) \*\*\*
+(Intercept) \*
 </td>
 </tr>
 <tr>
@@ -488,6 +498,11 @@ total_restrictions_cubed \*
 <tr>
 <td style="text-align:left;">
 median_age \*\*\*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+people_fully_vaccinated_per_hundred \*
 </td>
 </tr>
 <tr>
@@ -506,22 +521,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 887.5 on 153 degrees of freedom
+Residual standard error: 1104 on 68 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(5 observations deleted due to missingness)
+(89 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.3541, Adjusted R-squared: 0.3457
+Multiple R-squared: 0.2447, Adjusted R-squared: 0.2113
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 41.95 on 2 and 153 DF, p-value: 0.000000000000002987
+F-statistic: 7.342 on 3 and 68 DF, p-value: 0.0002467
 </td>
 </tr>
 <tr>

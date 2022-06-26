@@ -83,7 +83,8 @@ mlr_table_si <- function(df){
 
 mlr_table_res <- function(df){
   
-  capture.output(summary(lm(formula = total_deaths_per_million ~ total_restrictions + median_age,
+  capture.output(summary(lm(formula = total_deaths_per_million ~ total_restrictions + median_age +
+                             people_fully_vaccinated_per_hundred,
               data = df)), file=NULL,append=FALSE) %>% 
   as.tibble() %>% 
   rename(regression = value) %>%
@@ -93,7 +94,8 @@ mlr_table_res <- function(df){
 
 mlr_table_res_cubed <- function(df){
   
-  capture.output(summary(lm(formula = total_deaths_per_million ~ total_restrictions_cubed + median_age,
+  capture.output(summary(lm(formula = total_deaths_per_million ~ total_restrictions_cubed + median_age +
+                             people_fully_vaccinated_per_hundred,
               data = df)), file=NULL,append=FALSE) %>% 
   as.tibble() %>% 
   rename(regression = value) %>%
