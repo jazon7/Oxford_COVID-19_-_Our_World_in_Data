@@ -26,14 +26,6 @@ total_deaths_per_million
 <tbody>
 <tr>
 <td style="text-align:left;">
-longitude
-</td>
-<td style="text-align:right;">
--0.4023597
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 latitude
 </td>
 <td style="text-align:right;">
@@ -82,14 +74,6 @@ cardiovasc_death_rate
 </tr>
 <tr>
 <td style="text-align:left;">
-male_smokers
-</td>
-<td style="text-align:right;">
-0.0051781
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 life_expectancy
 </td>
 <td style="text-align:right;">
@@ -114,7 +98,7 @@ extreme_poverty
 </tr>
 <tr>
 <td style="text-align:left;">
-max_stringency
+stringency
 </td>
 <td style="text-align:right;">
 0.2588952
@@ -122,18 +106,10 @@ max_stringency
 </tr>
 <tr>
 <td style="text-align:left;">
-female_smokers
+lockdowns
 </td>
 <td style="text-align:right;">
-0.2816485
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-aged_65_older
-</td>
-<td style="text-align:right;">
-0.2944033
+0.3798327
 </td>
 </tr>
 <tr>
@@ -154,7 +130,15 @@ median_age
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions
+lockdowns_cubed
+</td>
+<td style="text-align:right;">
+0.4567377
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub_stringency
 </td>
 <td style="text-align:right;">
 0.4960606
@@ -162,7 +146,7 @@ total_restrictions
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions_cubed
+sub_stringency_cubed
 </td>
 <td style="text-align:right;">
 0.5063557
@@ -189,9 +173,9 @@ NA
 
 ![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
-### Scatter plots - total covid deaths per million vs. stringency / total_restrictions cubed
+### Scatter plots - total covid deaths per million vs. stringency / sub_stringency cubed
 
-![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-6-4.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-6-5.png)<!-- -->
 
 ### Regression
 
@@ -217,8 +201,8 @@ Call:
 </tr>
 <tr>
 <td style="text-align:left;">
-lm(formula = total_deaths_per_million \~ max_stringency +
-population_density +
+lm(formula = total_deaths_per_million \~ stringency + population_density
++
 </td>
 </tr>
 <tr>
@@ -266,7 +250,7 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-max_stringency 9.6139 6.9077 1.392 0.175
+stringency 9.6139 6.9077 1.392 0.175
 </td>
 </tr>
 <tr>
@@ -324,12 +308,13 @@ Call:
 </tr>
 <tr>
 <td style="text-align:left;">
-lm(formula = total_deaths_per_million \~ total_restrictions +
+lm(formula = total_deaths_per_million \~ sub_stringency +
+population_density +
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-population_density + date_first_death_days, data = df)
+date_first_death_days, data = df)
 </td>
 </tr>
 <tr>
@@ -372,7 +357,7 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions 0.2998 0.1564 1.916 0.0652 .
+sub_stringency 0.2998 0.1564 1.916 0.0652 .
 </td>
 </tr>
 <tr>
@@ -420,6 +405,336 @@ F-statistic: 4.041 on 3 and 29 DF, p-value: 0.01622
 </tr>
 </tbody>
 </table>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm(formula = total_deaths_per_million \~ sub_stringency_cubed +
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density + date_first_death_days, data = df)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Min 1Q Median 3Q Max
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-541.45 -291.51 -16.55 195.00 639.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coefficients:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimate Std. Error t value Pr(\>\|t\|)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Intercept) 424.19351 302.70851 1.401 0.1717
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub_stringency_cubed 0.03260 0.01392 2.342 0.0262 \*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density 0.93646 0.62357 1.502 0.1440
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days -4.03432 7.28635 -0.554 0.5840
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residual standard error: 348.7 on 29 degrees of freedom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multiple R-squared: 0.3319, Adjusted R-squared: 0.2627
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F-statistic: 4.801 on 3 and 29 DF, p-value: 0.007782
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm(formula = total_deaths_per_million \~ lockdowns + population_density
++
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days, data = df)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Min 1Q Median 3Q Max
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-500.37 -313.42 -22.65 227.87 669.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coefficients:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimate Std. Error t value Pr(\>\|t\|)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Intercept) 569.7151 434.3599 1.312 0.200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns 0.3402 0.4066 0.837 0.410
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density 0.8412 0.7438 1.131 0.267
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days -8.5382 7.6616 -1.114 0.274
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residual standard error: 375.8 on 29 degrees of freedom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multiple R-squared: 0.2242, Adjusted R-squared: 0.1439
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F-statistic: 2.793 on 3 and 29 DF, p-value: 0.05797
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm(formula = total_deaths_per_million \~ lockdowns + population_density
++
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days, data = df)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Min 1Q Median 3Q Max
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-500.37 -313.42 -22.65 227.87 669.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coefficients:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimate Std. Error t value Pr(\>\|t\|)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Intercept) 569.7151 434.3599 1.312 0.200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns 0.3402 0.4066 0.837 0.410
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density 0.8412 0.7438 1.131 0.267
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days -8.5382 7.6616 -1.114 0.274
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residual standard error: 375.8 on 29 degrees of freedom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multiple R-squared: 0.2242, Adjusted R-squared: 0.1439
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F-statistic: 2.793 on 3 and 29 DF, p-value: 0.05797
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
 
 # **European Countries - 2021-12-30**
 
@@ -449,7 +764,7 @@ total_deaths_per_million
 people_fully_vaccinated_per_hundred
 </td>
 <td style="text-align:right;">
--0.7221208
+-0.7201239
 </td>
 </tr>
 <tr>
@@ -486,6 +801,22 @@ latitude
 </tr>
 <tr>
 <td style="text-align:left;">
+lockdowns
+</td>
+<td style="text-align:right;">
+-0.0607356
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns_cubed
+</td>
+<td style="text-align:right;">
+-0.0487484
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 population_density
 </td>
 <td style="text-align:right;">
@@ -502,18 +833,10 @@ diabetes_prevalence
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions
+sub_stringency
 </td>
 <td style="text-align:right;">
 0.1746068
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-longitude
-</td>
-<td style="text-align:right;">
-0.1792136
 </td>
 </tr>
 <tr>
@@ -526,15 +849,7 @@ date_first_death_days
 </tr>
 <tr>
 <td style="text-align:left;">
-aged_65_older
-</td>
-<td style="text-align:right;">
-0.2150767
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-total_restrictions_cubed
+sub_stringency_cubed
 </td>
 <td style="text-align:right;">
 0.2446492
@@ -550,7 +865,7 @@ obesity_prevalence
 </tr>
 <tr>
 <td style="text-align:left;">
-max_stringency
+stringency
 </td>
 <td style="text-align:right;">
 0.2584739
@@ -582,22 +897,6 @@ median_age
 </tr>
 <tr>
 <td style="text-align:left;">
-male_smokers
-</td>
-<td style="text-align:right;">
-0.4494477
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-female_smokers
-</td>
-<td style="text-align:right;">
-0.4887887
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 cardiovasc_death_rate
 </td>
 <td style="text-align:right;">
@@ -609,9 +908,9 @@ cardiovasc_death_rate
 
 ![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
 
-### Scatter plots - total covid deaths per million vs. stringency / total_restrictions cubed
+### Scatter plots - total covid deaths per million vs. stringency / sub_stringency cubed
 
-![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-10-3.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-10-4.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-10-5.png)<!-- -->
 
 ### Regression
 
@@ -635,8 +934,8 @@ Call:
 </tr>
 <tr>
 <td style="text-align:left;">
-lm(formula = total_deaths_per_million \~ max_stringency +
-population_density +
+lm(formula = total_deaths_per_million \~ stringency + population_density
++
 </td>
 </tr>
 <tr>
@@ -684,7 +983,7 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-max_stringency 35.3352 23.1630 1.526 0.138
+stringency 35.3352 23.1630 1.526 0.138
 </td>
 </tr>
 <tr>
@@ -742,12 +1041,13 @@ Call:
 </tr>
 <tr>
 <td style="text-align:left;">
-lm(formula = total_deaths_per_million \~ total_restrictions +
+lm(formula = total_deaths_per_million \~ sub_stringency +
+population_density +
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-population_density + date_first_death_days, data = df)
+date_first_death_days, data = df)
 </td>
 </tr>
 <tr>
@@ -790,7 +1090,7 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions 0.3628 0.2222 1.632 0.113
+sub_stringency 0.3628 0.2222 1.632 0.113
 </td>
 </tr>
 <tr>
@@ -828,6 +1128,336 @@ F-statistic: 1.281 on 3 and 29 DF, p-value: 0.2994
 </tr>
 </tbody>
 </table>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm(formula = total_deaths_per_million \~ sub_stringency_cubed +
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density + date_first_death_days, data = df)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Min 1Q Median 3Q Max
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-2008.4 -369.6 -171.2 387.3 2755.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coefficients:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimate Std. Error t value Pr(\>\|t\|)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Intercept) 110.07975 944.64071 0.117 0.9080
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub_stringency_cubed 0.03875 0.01954 1.983 0.0569 .
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density 0.24161 1.90180 0.127 0.8998
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days 37.57519 21.92346 1.714 0.0972 .
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residual standard error: 1069 on 29 degrees of freedom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multiple R-squared: 0.151, Adjusted R-squared: 0.06317
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F-statistic: 1.719 on 3 and 29 DF, p-value: 0.1849
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm(formula = total_deaths_per_million \~ lockdowns + population_density
++
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days, data = df)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Min 1Q Median 3Q Max
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-1971.35 -739.02 15.28 622.55 2593.95
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coefficients:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimate Std. Error t value Pr(\>\|t\|)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Intercept) 1192.43618 1412.41712 0.844 0.405
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns 0.05507 0.58953 0.093 0.926
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density 0.44487 2.20331 0.202 0.841
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days 23.53310 23.85184 0.987 0.332
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residual standard error: 1139 on 29 degrees of freedom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multiple R-squared: 0.03617, Adjusted R-squared: -0.06354
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F-statistic: 0.3627 on 3 and 29 DF, p-value: 0.7804
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm(formula = total_deaths_per_million \~ lockdowns_cubed +
+population_density +
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days, data = df)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Min 1Q Median 3Q Max
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-1987.31 -755.40 17.57 626.67 2583.61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coefficients:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimate Std. Error t value Pr(\>\|t\|)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Intercept) 1248.977917 1028.499796 1.214 0.234
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns_cubed 0.006323 0.079470 0.080 0.937
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density 0.470112 2.143155 0.219 0.828
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days 23.223909 23.060889 1.007 0.322
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residual standard error: 1139 on 29 degrees of freedom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multiple R-squared: 0.03609, Adjusted R-squared: -0.06363
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F-statistic: 0.3619 on 3 and 29 DF, p-value: 0.781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
 
 # **European Countries - 2022-05-20**
 
@@ -857,7 +1487,7 @@ total_deaths_per_million
 people_fully_vaccinated_per_hundred
 </td>
 <td style="text-align:right;">
--0.7388693
+-0.7362630
 </td>
 </tr>
 <tr>
@@ -910,6 +1540,22 @@ population_density
 </tr>
 <tr>
 <td style="text-align:left;">
+lockdowns
+</td>
+<td style="text-align:right;">
+-0.0445076
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns_cubed
+</td>
+<td style="text-align:right;">
+-0.0285146
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 diabetes_prevalence
 </td>
 <td style="text-align:right;">
@@ -918,10 +1564,10 @@ diabetes_prevalence
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions
+sub_stringency
 </td>
 <td style="text-align:right;">
-0.1565408
+0.1564482
 </td>
 </tr>
 <tr>
@@ -934,31 +1580,15 @@ date_first_death_days
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions_cubed
+sub_stringency_cubed
 </td>
 <td style="text-align:right;">
-0.2324534
+0.2324042
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-aged_65_older
-</td>
-<td style="text-align:right;">
-0.2401198
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-longitude
-</td>
-<td style="text-align:right;">
-0.2445521
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-max_stringency
+stringency
 </td>
 <td style="text-align:right;">
 0.2483456
@@ -990,22 +1620,6 @@ median_age
 </tr>
 <tr>
 <td style="text-align:left;">
-male_smokers
-</td>
-<td style="text-align:right;">
-0.4732112
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-female_smokers
-</td>
-<td style="text-align:right;">
-0.5176944
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 cardiovasc_death_rate
 </td>
 <td style="text-align:right;">
@@ -1019,7 +1633,7 @@ cardiovasc_death_rate
 
 ### Scatter plots - total deaths per million vs. stringency / total restrictions cubed
 
-![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
+![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-14-3.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-14-4.png)<!-- -->![](03_Analysis_europe_files/figure-gfm/unnamed-chunk-14-5.png)<!-- -->
 
 ### Regression
 
@@ -1043,8 +1657,8 @@ Call:
 </tr>
 <tr>
 <td style="text-align:left;">
-lm(formula = total_deaths_per_million \~ max_stringency +
-population_density +
+lm(formula = total_deaths_per_million \~ stringency + population_density
++
 </td>
 </tr>
 <tr>
@@ -1092,7 +1706,7 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-max_stringency 39.6024 25.8942 1.529 0.137
+stringency 39.6024 25.8942 1.529 0.137
 </td>
 </tr>
 <tr>
@@ -1150,12 +1764,13 @@ Call:
 </tr>
 <tr>
 <td style="text-align:left;">
-lm(formula = total_deaths_per_million \~ total_restrictions +
+lm(formula = total_deaths_per_million \~ sub_stringency +
+population_density +
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-population_density + date_first_death_days, data = df)
+date_first_death_days, data = df)
 </td>
 </tr>
 <tr>
@@ -1174,7 +1789,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--2032.6 -607.0 -204.1 505.2 3262.0
+-2032.8 -607.2 -204.0 505.2 3262.1
 </td>
 </tr>
 <tr>
@@ -1193,22 +1808,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 63.3039 1321.3391 0.048 0.962
+(Intercept) 62.5985 1321.6188 0.047 0.963
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions 0.3386 0.2080 1.628 0.114
+sub_stringency 0.3386 0.2080 1.628 0.114
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-population_density -1.0628 2.2286 -0.477 0.637
+population_density -1.0621 2.2285 -0.477 0.637
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-date_first_death_days 40.0537 24.8802 1.610 0.118
+date_first_death_days 40.0743 24.8840 1.610 0.118
 </td>
 </tr>
 <tr>
@@ -1222,7 +1837,7 @@ Residual standard error: 1219 on 29 degrees of freedom
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.127, Adjusted R-squared: 0.03664
+Multiple R-squared: 0.127, Adjusted R-squared: 0.03665
 </td>
 </tr>
 <tr>
@@ -1256,17 +1871,12 @@ Call:
 </tr>
 <tr>
 <td style="text-align:left;">
-lm(formula = total_deaths_per_million \~ total_restrictions_cubed +
+lm(formula = total_deaths_per_million \~ sub_stringency_cubed +
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred + life_expectancy + latitude,
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-data = df_europe_20220520)
+population_density + date_first_death_days, data = df)
 </td>
 </tr>
 <tr>
@@ -1285,7 +1895,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1204.9 -225.5 -135.2 301.7 836.7
+-2079.7 -488.4 -126.6 322.9 3199.7
 </td>
 </tr>
 <tr>
@@ -1304,56 +1914,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 26914.84516 4885.10990 5.510 0.0000476
+(Intercept) 491.69699 1037.02959 0.474 0.6390
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-total_restrictions_cubed 0.02163 0.01274 1.698 0.10891
+sub_stringency_cubed 0.03790 0.01948 1.945 0.0615 .
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -22.06332 12.45074 -1.772 0.09543
+population_density -0.56306 2.13386 -0.264 0.7937
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-life_expectancy -250.15345 62.50803 -4.002 0.00103
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-latitude -65.53463 24.07011 -2.723 0.01506
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-(Intercept) \*\*\*
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-total_restrictions_cubed
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-people_fully_vaccinated_per_hundred .
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-life_expectancy \*\*
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-latitude \*
+date_first_death_days 40.96279 24.21536 1.692 0.1014
 </td>
 </tr>
 <tr>
@@ -1372,22 +1948,231 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 493.1 on 16 degrees of freedom
+Residual standard error: 1198 on 29 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(12 observations deleted due to missingness)
+Multiple R-squared: 0.1572, Adjusted R-squared: 0.06996
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.8352, Adjusted R-squared: 0.794
+F-statistic: 1.802 on 3 and 29 DF, p-value: 0.1688
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 20.27 on 4 and 16 DF, p-value: 0.000004179
+</td>
+</tr>
+</tbody>
+</table>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm(formula = total_deaths_per_million \~ lockdowns + population_density
++
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days, data = df)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Min 1Q Median 3Q Max
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-2090.50 -766.40 -8.35 677.41 3101.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coefficients:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimate Std. Error t value Pr(\>\|t\|)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Intercept) 1218.5884 1490.5196 0.818 0.420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns 0.2284 0.5362 0.426 0.673
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density -0.5537 2.4100 -0.230 0.820
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days 30.9189 26.3945 1.171 0.251
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residual standard error: 1269 on 29 degrees of freedom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multiple R-squared: 0.05312, Adjusted R-squared: -0.04483
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F-statistic: 0.5423 on 3 and 29 DF, p-value: 0.6572
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Call:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm(formula = total_deaths_per_million \~ lockdowns_cubed +
+population_density +
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days, data = df)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Min 1Q Median 3Q Max
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+-2144.49 -780.40 26.41 637.74 3076.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coefficients:
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Estimate Std. Error t value Pr(\>\|t\|)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(Intercept) 1406.72638 1146.80418 1.227 0.230
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns_cubed 0.03353 0.07674 0.437 0.665
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+population_density -0.49126 2.35628 -0.208 0.836
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date_first_death_days 30.46981 25.93865 1.175 0.250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residual standard error: 1269 on 29 degrees of freedom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multiple R-squared: 0.05343, Adjusted R-squared: -0.0445
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F-statistic: 0.5456 on 3 and 29 DF, p-value: 0.655
 </td>
 </tr>
 <tr>

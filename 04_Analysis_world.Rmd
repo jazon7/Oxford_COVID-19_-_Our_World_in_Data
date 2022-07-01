@@ -10,7 +10,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 if (!require(pacman)) install.packages('pacman')
 library(pacman)
-p_load(tidyverse,ggpubr,ggrepel,ggtext,scales,viridis,ggthemes,psych,kableExtra,corrr)
+p_load(tidyverse,ggpubr,ggrepel,ggtext,scales,viridis,ggthemes,psych,kableExtra,corrr,car,ggiraphExtra,olsrr)
 options(scipen=999)
 options(warn=-1)
 ```
@@ -21,7 +21,7 @@ df_world_20211230 <- readRDS("OxOw_Extraction_world_20211230_large.rds")
 
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-cor_variables <- c("location","iso_code","date","continent","total_cases_per_million","total_deaths_per_million","people_fully_vaccinated_per_hundred","population_density","median_age","gdp_per_capita","extreme_poverty","cardiovasc_death_rate","diabetes_prevalence","life_expectancy","human_development_index","latitude","total_restrictions","total_restrictions_cubed","first_death_date","date_first_death_days","max_stringency","obesity_prevalence")
+cor_variables <- c("location","iso_code","date","continent","total_deaths_per_million","people_fully_vaccinated_per_hundred","population_density","median_age","gdp_per_capita","extreme_poverty","cardiovasc_death_rate","diabetes_prevalence","life_expectancy","human_development_index","latitude","sub_stringency","sub_stringency_cubed","first_death_date","date_first_death_days","stringency","obesity_prevalence","lockdowns","lockdowns_cubed")
 
 df_world_20211230 <- df_world_20211230 %>% select(cor_variables)
 #replace -inf values with NA
@@ -70,38 +70,104 @@ corr_matrix <- function(df){
         )
   
 }
+reg_print <- function(model){
+  p <- ols_regress(model)
+  tib <- capture.output(p, file = NULL, append = FALSE) %>% 
+  as_tibble() %>% 
+    kbl() %>% 
+  kable_classic()
 
-mlr_table_si <- function(df){
+  return(tib)
   
-  capture.output(summary(lm(formula = total_deaths_per_million ~ max_stringency + median_age,
-             data = df)), file=NULL,append=FALSE) %>% 
+}
+
+vif_print <- function(model){
+  
+  p <- ols_coll_diag(model)
+
+  out <- p$vif_t %>% select(-Tolerance) %>% arrange(desc(VIF)) %>% 
+    kbl() %>% 
+  kable_classic()
+
+  return(out)
+}
+
+
+
+mlr_print <- function(model){
+  capture.output(summary(model), file = NULL, append = FALSE) %>% 
   as.tibble() %>% 
   rename(regression = value) %>% 
   kbl() %>% 
   kable_classic()
 }
 
-mlr_table_res <- function(df){
+mlr_vif <- function(model){
+  vif_values <- vif(model) %>% sort(decreasing=FALSE, na.last=NA)
+  barplot(vif_values, main = "VIF Values", col = "steelblue", horiz=F, las=2,cex.names=.6)
+  abline(h = 10, lwd = 2, lty = 2)}
+
+
+create_model_full <- function(df){
   
-  capture.output(summary(lm(formula = total_deaths_per_million ~ total_restrictions + median_age +
-                             people_fully_vaccinated_per_hundred,
-              data = df)), file=NULL,append=FALSE) %>% 
-  as.tibble() %>% 
-  rename(regression = value) %>%
-  kbl() %>% 
-  kable_classic()
+  model <- lm(formula = total_deaths_per_million ~ median_age + people_fully_vaccinated_per_hundred + population_density + gdp_per_capita + 
+                          extreme_poverty + cardiovasc_death_rate + diabetes_prevalence + life_expectancy + human_development_index + latitude + 
+                          sub_stringency + date_first_death_days + obesity_prevalence, data = df)
+  return (model)
 }
 
-mlr_table_res_cubed <- function(df){
+create_model_full_2 <- function(df){
   
-  capture.output(summary(lm(formula = total_deaths_per_million ~ total_restrictions_cubed + median_age +
-                             people_fully_vaccinated_per_hundred,
-              data = df)), file=NULL,append=FALSE) %>% 
-  as.tibble() %>% 
-  rename(regression = value) %>%
-  kbl() %>% 
-  kable_classic()
+  model <- lm(formula = total_deaths_per_million ~ median_age + people_fully_vaccinated_per_hundred + population_density + gdp_per_capita + 
+                          extreme_poverty + cardiovasc_death_rate + diabetes_prevalence + latitude + 
+                          sub_stringency + date_first_death_days + obesity_prevalence, data = df)
+  return (model)
 }
+
+create_model_full_3 <- function(df){
+  
+  model <- lm(formula = total_deaths_per_million ~ median_age + people_fully_vaccinated_per_hundred + population_density + gdp_per_capita + 
+                          extreme_poverty + cardiovasc_death_rate + diabetes_prevalence + 
+                          sub_stringency + date_first_death_days + obesity_prevalence, data = df)
+  return (model)
+}
+
+create_model_full_4 <- function(df){
+  
+  model <- lm(formula = total_deaths_per_million ~ median_age + gdp_per_capita + 
+                obesity_prevalence, data = df)
+  return (model)
+}
+
+create_model_stringency <- function(df){
+  model <-  lm(formula = total_deaths_per_million ~ median_age + stringency + 
+                people_fully_vaccinated_per_hundred,data = df)
+  return(model)
+} 
+
+create_model_sub_stringency <- function(df){
+  model <-  lm(formula = total_deaths_per_million ~ median_age + sub_stringency + 
+                people_fully_vaccinated_per_hundred,data = df)
+  return(model)
+} 
+
+create_model_sub_stringency_cubed <- function(df){
+  model <-  lm(formula = total_deaths_per_million ~ median_age + sub_stringency_cubed + 
+                people_fully_vaccinated_per_hundred,data = df)
+  return(model)
+} 
+
+create_model_lockdowns <- function(df){
+  model <-  lm(formula = total_deaths_per_million ~ median_age + lockdowns + 
+                people_fully_vaccinated_per_hundred,data = df)
+  return(model)
+} 
+
+create_model_lockdowns_cubed <- function(df){
+  model <-  lm(formula = total_deaths_per_million ~ median_age + lockdowns_cubed + 
+                people_fully_vaccinated_per_hundred,data = df)
+  return(model)
+} 
 
 #function to plot scatter plot 
 country_scatter <- function(df_input, x_metric, title, equation = "no", facet = 'no') {
@@ -171,8 +237,8 @@ country_map <- function(df,dt,fill_var,title,include_title){
   #merge dataframes based on country location
   map_df <- full_join(map_data,df_world, by = 'location') %>% 
   #select only specific columns
-  select(location,total_restrictions,total_restrictions_cubed, total_deaths_per_million,
-         max_stringency,group, long, lat)
+  select(location,sub_stringency,sub_stringency_cubed, total_deaths_per_million,
+         stringency,group, long, lat)
   
   #summarise data to reduce to one country per row
   map_lab_data <- map_df %>%
@@ -211,10 +277,10 @@ country_map <- function(df,dt,fill_var,title,include_title){
 ### Maps
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
 ggarrange(
-country_map(df_world_20211230,'2021-12-30',"max_stringency","World",'no'),
+country_map(df_world_20211230,'2021-12-30',"stringency","World",'no'),
 country_map(df_world_20211230,'2021-12-30',"total_deaths_per_million","World",'no'),
-country_map(df_world_20211230,'2021-12-30',"total_restrictions","World",'no'), 
-country_map(df_world_20211230,'2021-12-30',"total_restrictions_cubed","World",'no'), nrow = 2, ncol = 2) %>% 
+country_map(df_world_20211230,'2021-12-30',"sub_stringency","World",'no'), 
+country_map(df_world_20211230,'2021-12-30',"sub_stringency_cubed","World",'no'), nrow = 2, ncol = 2) %>% 
 annotate_figure(top = text_grob(paste0("World Map ", "2021-12-30"), color = "black", 
           face = "bold", size = 16))
 ```
@@ -226,32 +292,57 @@ corr_plot(df_world_20211230)
 corr_matrix(df_world_20211230)
 ```
 
-### Scatter plots - total covid deaths per million vs. stringency / total_restrictions cubed
+### Scatter plots - total covid deaths per million vs. stringency / sub_stringency cubed
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
 ggarrange(
-country_scatter(df_world_20211230,"median_age",'no'),
-country_scatter(df_world_20211230,"obesity_prevalence",'no'), ncol = 1, common.legend = T, legend = c("right")) %>% 
-  annotate_figure(map, top = text_grob(paste0("Covid deaths vs. age / obesity ", "2021-12-30"), color = "black", 
-          face = "bold", size = 16))
+ country_scatter(df_world_20211230,"stringency",'no','no') + rremove("ylab"),
+ country_scatter(df_world_20211230,"sub_stringency",'no','no') + rremove("ylab"),
+ country_scatter(df_world_20211230,"lockdowns",'no','no') + rremove("ylab"), ncol = 1, common.legend = T, legend = c("right")) %>% 
+  annotate_figure(map, top = text_grob(paste0("Covid deaths vs. restrictions ", "2021-12-30"), color = "black", 
+          face = "bold", size = 16), 
+                       left = text_grob("Total Deaths per Million", rot = 90, vjust = 1))
 
 ggarrange(
-country_scatter(df_world_20211230,"max_stringency",'no'),
-country_scatter(df_world_20211230,"total_restrictions_cubed",'no'), ncol = 1, common.legend = T, legend = c("right")) %>% 
+country_scatter(df_world_20211230,"sub_stringency",'no','no','fac') + rremove("ylab"),
+country_scatter(df_world_20211230,"sub_stringency_cubed",'no','no','fac') + rremove("ylab"), ncol = 1, common.legend = T, legend = c("right")) %>% 
   annotate_figure(map, top = text_grob(paste0("Covid deaths vs. restrictions ", "2021-12-30"), color = "black", 
-          face = "bold", size = 16))
-
-ggarrange(
-country_scatter(df_world_20211230,"max_stringency",'no','no','fac'),
-country_scatter(df_world_20211230,"total_restrictions_cubed",'no','no','fac'), ncol = 1, common.legend = T, legend = c("right")) %>% 
-  annotate_figure(map, top = text_grob(paste0("Covid deaths vs. restrictions ", "2021-12-30"), color = "black", 
-          face = "bold", size = 16))
+          face = "bold", size = 16),left = text_grob("Total Deaths per Million", rot = 90, vjust = 1))
 ```
 
 ### Regression
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-mlr_table_si(df_world_20211230)
-mlr_table_res(df_world_20211230)
-mlr_table_res_cubed(df_world_20211230)
+mlr_print(create_model_full(df_world_20211230))
+mlr_vif(create_model_full(df_world_20211230))
+
+mlr_print(create_model_full_2(df_world_20211230))
+mlr_vif(create_model_full_2(df_world_20211230))
+
+mlr_print(create_model_full_3(df_world_20211230))
+mlr_vif(create_model_full_3(df_world_20211230))
+
+mlr_print(create_model_full_4(df_world_20211230))
+mlr_vif(create_model_full_4(df_world_20211230))
+avPlots(create_model_full_4(df_world_20211230))
+
+mlr_print(create_model_stringency(df_world_20211230))
+mlr_vif(create_model_stringency(df_world_20211230))
+avPlots(create_model_stringency(df_world_20211230))
+
+mlr_print(create_model_sub_stringency(df_world_20211230))
+mlr_vif(create_model_sub_stringency(df_world_20211230))
+avPlots(create_model_sub_stringency(df_world_20211230))
+
+mlr_print(create_model_sub_stringency_cubed(df_world_20211230))
+mlr_vif(create_model_sub_stringency_cubed(df_world_20211230))
+avPlots(create_model_sub_stringency_cubed(df_world_20211230))
+
+mlr_print(create_model_lockdowns(df_world_20211230))
+mlr_vif(create_model_lockdowns(df_world_20211230))
+avPlots(create_model_lockdowns(df_world_20211230))
+
+mlr_print(create_model_lockdowns_cubed(df_world_20211230))
+mlr_vif(create_model_lockdowns_cubed(df_world_20211230))
+avPlots(create_model_lockdowns_cubed(df_world_20211230))
 ```
 
 
@@ -272,6 +363,6 @@ df_world_20211230 %>% select(location) %>%
 * [Obesity Data](https://github.com/camminady/overweight)
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-rm(list=setdiff(ls()," "))
+#rm(list=setdiff(ls()," "))
 ```
 

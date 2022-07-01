@@ -143,10 +143,12 @@ df  <- df %>%
 df  <- df %>% 
   group_by(location) %>% 
   mutate(
-    total_restrictions = cum_c2_workplace_closing + cum_c6_stay_at_home_requirements + 
+    sub_stringency = cum_c2_workplace_closing + cum_c6_stay_at_home_requirements + 
       cum_c7_restrictions_on_internal_movement + cum_h6_facial_coverings,
-    total_restrictions_cubed = cum_c2_workplace_closing_cubed + cum_c6_stay_at_home_requirements_cubed + 
-      cum_c7_restrictions_on_internal_movement_cubed + cum_h6_facial_coverings_cubed)
+    sub_stringency_cubed = cum_c2_workplace_closing_cubed + cum_c6_stay_at_home_requirements_cubed + 
+      cum_c7_restrictions_on_internal_movement_cubed + cum_h6_facial_coverings_cubed,
+    lockdowns = cum_c2_workplace_closing + cum_c6_stay_at_home_requirements,
+    lockdowns_cubed = cum_c2_workplace_closing_cubed + cum_c6_stay_at_home_requirements_cubed)
 
 #sanity check to make sure there is only one row per date
 df_check <- df %>% count(location,date)
@@ -184,7 +186,7 @@ df_continent <- function(df, cnt){
 #find max stringency index and populate new column
 
 #helper function to find max stringency 
-find_max_stringency <- function(ct,dt){
+find_stringency <- function(ct,dt){
   output <- df %>% 
     ungroup() %>%
     filter(location == ct & date <= dt) %>%
@@ -213,20 +215,20 @@ df <- df %>% mutate(date_first_death_days = as.numeric(difftime(first_death_date
 
 
 #find max stringency
-df_max_si <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,max(df$date) %>% as.character()))
+df_max_si <- df %>% group_by(location) %>% summarise(stringency = find_stringency(location,max(df$date) %>% as.character()))
 
-df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = 
-find_max_stringency(location,"2020-12-30"))
+df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(stringency = 
+find_stringency(location,"2020-12-30"))
 
-df_max_si_europe_20201230 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2020-12-30"))
+df_max_si_europe_20201230 <- df %>% group_by(location) %>% summarise(stringency = find_stringency(location,"2020-12-30"))
 
-df_max_si_europe_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2021-12-30"))
+df_max_si_europe_20211230 <- df %>% group_by(location) %>% summarise(stringency = find_stringency(location,"2021-12-30"))
 
-df_max_si_europe_20220520 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2022-05-20"))
+df_max_si_europe_20220520 <- df %>% group_by(location) %>% summarise(stringency = find_stringency(location,"2022-05-20"))
 
 
-df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = 
-find_max_stringency(location,"2021-12-30"))
+df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(stringency = 
+find_stringency(location,"2021-12-30"))
 
 
 df_large <- merge(df, df_max_si, by = 'location')
@@ -250,7 +252,7 @@ df_world_20211230_large <- merge(df_world_20211230, df_max_si_world_20211230, by
 ```{r}
 #create filtered data frame to output to csv
 
-small_column_list <- c("iso_code","continent","location","date","c2_workplace_closing","c2_workplace_closing_cubed","cum_c2_workplace_closing","cum_c2_workplace_closing_cubed","c6_stay_at_home_requirements","c6_stay_at_home_requirements_cubed","cum_c6_stay_at_home_requirements","cum_c6_stay_at_home_requirements_cubed","c7_restrictions_on_internal_movement","c7_restrictions_on_internal_movement_cubed","cum_c7_restrictions_on_internal_movement","cum_c7_restrictions_on_internal_movement_cubed","h6_facial_coverings","h6_facial_coverings_cubed","cum_h6_facial_coverings","cum_h6_facial_coverings_cubed","total_restrictions","total_restrictions_cubed","new_deaths_per_million","total_deaths_per_million","stringency_index_for_display","government_response_index_for_display","containment_health_index_for_display","economic_support_index_for_display","date_first_death_days","max_stringency","population_density","obesity_prevalence")
+small_column_list <- c("iso_code","continent","location","date","c2_workplace_closing","c2_workplace_closing_cubed","cum_c2_workplace_closing","cum_c2_workplace_closing_cubed","c6_stay_at_home_requirements","c6_stay_at_home_requirements_cubed","cum_c6_stay_at_home_requirements","cum_c6_stay_at_home_requirements_cubed","c7_restrictions_on_internal_movement","c7_restrictions_on_internal_movement_cubed","cum_c7_restrictions_on_internal_movement","cum_c7_restrictions_on_internal_movement_cubed","h6_facial_coverings","h6_facial_coverings_cubed","cum_h6_facial_coverings","cum_h6_facial_coverings_cubed","sub_stringency","sub_stringency_cubed","new_deaths_per_million","total_deaths_per_million","stringency_index_for_display","government_response_index_for_display","containment_health_index_for_display","economic_support_index_for_display","date_first_death_days","stringency","population_density","obesity_prevalence")
 
 df_small <- df_large %>% select(small_column_list)
 
