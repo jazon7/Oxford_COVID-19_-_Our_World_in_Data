@@ -25,7 +25,7 @@ total_deaths_per_million
 people_fully_vaccinated_per_hundred
 </td>
 <td style="text-align:right;">
--0.7201239
+-0.7198844
 </td>
 </tr>
 <tr>
@@ -33,7 +33,7 @@ people_fully_vaccinated_per_hundred
 life_expectancy
 </td>
 <td style="text-align:right;">
--0.6334930
+-0.6166721
 </td>
 </tr>
 <tr>
@@ -41,7 +41,7 @@ life_expectancy
 human_development_index
 </td>
 <td style="text-align:right;">
--0.6250602
+-0.5655302
 </td>
 </tr>
 <tr>
@@ -49,7 +49,7 @@ human_development_index
 gdp_per_capita
 </td>
 <td style="text-align:right;">
--0.5305191
+-0.4859389
 </td>
 </tr>
 <tr>
@@ -57,15 +57,7 @@ gdp_per_capita
 latitude
 </td>
 <td style="text-align:right;">
--0.3964205
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-lockdowns
-</td>
-<td style="text-align:right;">
--0.0607356
+-0.3772373
 </td>
 </tr>
 <tr>
@@ -73,7 +65,15 @@ lockdowns
 lockdowns_cubed
 </td>
 <td style="text-align:right;">
--0.0487484
+-0.0403744
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lockdowns
+</td>
+<td style="text-align:right;">
+-0.0396702
 </td>
 </tr>
 <tr>
@@ -81,7 +81,7 @@ lockdowns_cubed
 population_density
 </td>
 <td style="text-align:right;">
--0.0207148
+0.0126181
 </td>
 </tr>
 <tr>
@@ -89,15 +89,7 @@ population_density
 diabetes_prevalence
 </td>
 <td style="text-align:right;">
-0.1656193
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sub_stringency
-</td>
-<td style="text-align:right;">
-0.1746068
+0.0593467
 </td>
 </tr>
 <tr>
@@ -105,23 +97,15 @@ sub_stringency
 date_first_death_days
 </td>
 <td style="text-align:right;">
-0.1833453
+0.1492891
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-sub_stringency_cubed
+sub_stringency
 </td>
 <td style="text-align:right;">
-0.2446492
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-obesity_prevalence
-</td>
-<td style="text-align:right;">
-0.2580066
+0.1907932
 </td>
 </tr>
 <tr>
@@ -129,7 +113,15 @@ obesity_prevalence
 stringency
 </td>
 <td style="text-align:right;">
-0.2584739
+0.2094245
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub_stringency_cubed
+</td>
+<td style="text-align:right;">
+0.2591879
 </td>
 </tr>
 <tr>
@@ -137,7 +129,15 @@ stringency
 extreme_poverty
 </td>
 <td style="text-align:right;">
-0.2842681
+0.3582585
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+obesity_prevalence
+</td>
+<td style="text-align:right;">
+0.4297658
 </td>
 </tr>
 <tr>
@@ -145,7 +145,7 @@ extreme_poverty
 median_age
 </td>
 <td style="text-align:right;">
-0.4245012
+0.4523546
 </td>
 </tr>
 <tr>
@@ -153,7 +153,7 @@ median_age
 cardiovasc_death_rate
 </td>
 <td style="text-align:right;">
-0.6004901
+0.5725272
 </td>
 </tr>
 </tbody>
@@ -221,22 +221,22 @@ Residuals:
 </tr>
 <tr>
 <td style="text-align:left;">
-3 5 6 9 10 14 15 16
+3 4 5 8 9 13 14 15
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
--0.2183 -5.6633 -28.7075 -8.9767 52.0905 10.1118 26.9445 -20.2068
+-0.1299 -5.7301 -28.6163 -8.9912 52.1446 10.1010 26.9893 -20.2206
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-17 18 19 20 23 26 33
+16 17 18 19 22 25 32
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-6.5132 -7.8269 -14.1278 -17.5940 2.7236 2.6926 2.2450
+6.4496 -7.8597 -14.3933 -17.3611 2.7811 2.7110 2.1256
 </td>
 </tr>
 <tr>
@@ -255,72 +255,72 @@ Estimate Std. Error t value
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 28906.458723 8553.727941 3.379
+(Intercept) 28904.713522 8554.544227 3.379
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age -48.391456 33.468108 -1.446
+median_age -48.572126 33.376233 -1.455
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred 41.553271 6.821245 6.092
+people_fully_vaccinated_per_hundred 41.430066 6.737921 6.149
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-population_density 5.893007 0.552301 10.670
+population_density 5.885925 0.551816 10.666
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-gdp_per_capita 0.035288 0.005731 6.158
+gdp_per_capita 0.035195 0.005723 6.149
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-extreme_poverty -44.692557 90.890482 -0.492
+extreme_poverty -46.055052 89.670206 -0.514
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-cardiovasc_death_rate 5.820200 2.228833 2.611
+cardiovasc_death_rate 5.816753 2.228455 2.610
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-diabetes_prevalence -57.137253 52.235080 -1.094
+diabetes_prevalence -56.350899 51.808376 -1.088
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-life_expectancy 120.189739 71.217933 1.688
+life_expectancy 119.735308 71.227979 1.681
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-human_development_index -44424.179449 3847.095256 -11.547
+human_development_index -44361.138078 3841.205211 -11.549
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-latitude -15.150688 8.897108 -1.703
+latitude -15.152594 8.884883 -1.705
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-sub_stringency -0.356797 0.128906 -2.768
+sub_stringency -0.354766 0.127008 -2.793
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-date_first_death_days -36.416301 8.403724 -4.333
+date_first_death_days -36.362291 8.347242 -4.356
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-obesity_prevalence 132.677473 22.735554 5.836
+obesity_prevalence 132.274823 22.525892 5.872
 </td>
 </tr>
 <tr>
@@ -335,12 +335,12 @@ Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 0.3852
+median_age 0.3833
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred 0.1036
+people_fully_vaccinated_per_hundred 0.1026
 </td>
 </tr>
 <tr>
@@ -350,27 +350,27 @@ population_density 0.0595 .
 </tr>
 <tr>
 <td style="text-align:left;">
-gdp_per_capita 0.1025
+gdp_per_capita 0.1026
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-extreme_poverty 0.7091
+extreme_poverty 0.6979
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-cardiovasc_death_rate 0.2328
+cardiovasc_death_rate 0.2329
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-diabetes_prevalence 0.4715
+diabetes_prevalence 0.4733
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-life_expectancy 0.3405
+life_expectancy 0.3416
 </td>
 </tr>
 <tr>
@@ -380,22 +380,22 @@ human_development_index 0.0550 .
 </tr>
 <tr>
 <td style="text-align:left;">
-latitude 0.3380
+latitude 0.3376
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-sub_stringency 0.2207
+sub_stringency 0.2189
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-date_first_death_days 0.1444
+date_first_death_days 0.1437
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-obesity_prevalence 0.1080
+obesity_prevalence 0.1074
 </td>
 </tr>
 <tr>
@@ -414,12 +414,12 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 74.29 on 1 degrees of freedom
+Residual standard error: 74.31 on 1 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(18 observations deleted due to missingness)
+(17 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
@@ -429,7 +429,7 @@ Multiple R-squared: 0.9998, Adjusted R-squared: 0.9967
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 321.8 on 13 and 1 DF, p-value: 0.04361
+F-statistic: 321.6 on 13 and 1 DF, p-value: 0.04362
 </td>
 </tr>
 <tr>
@@ -487,7 +487,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1083.6 -488.6 -130.8 447.7 1751.0
+-1083.9 -488.3 -131.4 447.1 1751.0
 </td>
 </tr>
 <tr>
@@ -506,22 +506,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -705.19 3656.03 -0.193 0.84934
+(Intercept) -707.67 3657.83 -0.193 0.848885
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 117.80 78.55 1.500 0.15204
+median_age 117.75 78.59 1.498 0.152386
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-stringency 17.46 22.40 0.779 0.44644
+stringency 17.51 22.41 0.781 0.445491
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -56.20 14.14 -3.974 0.00098 \*\*\*
+people_fully_vaccinated_per_hundred -56.19 14.15 -3.971 0.000987 \*\*\*
 </td>
 </tr>
 <tr>
@@ -540,22 +540,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 776.5 on 17 degrees of freedom
+Residual standard error: 776.8 on 17 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(12 observations deleted due to missingness)
+(11 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.6108, Adjusted R-squared: 0.5422
+Multiple R-squared: 0.6106, Adjusted R-squared: 0.5418
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 8.895 on 3 and 17 DF, p-value: 0.0009089
+F-statistic: 8.884 on 3 and 17 DF, p-value: 0.0009143
 </td>
 </tr>
 <tr>
@@ -613,7 +613,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--992.50 -492.68 -63.56 316.20 1800.43
+-993.26 -496.74 -64.22 316.98 1799.61
 </td>
 </tr>
 <tr>
@@ -632,22 +632,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 1799.7190 3966.7175 0.454 0.655780
+(Intercept) 1789.4914 3969.6397 0.451 0.657834
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 84.4826 88.7269 0.952 0.354357
+median_age 84.7404 88.7802 0.954 0.353209
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-sub_stringency 0.2080 0.1961 1.061 0.303668
+sub_stringency 0.2071 0.1962 1.056 0.305851
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -62.1985 15.1282 -4.111 0.000728
+people_fully_vaccinated_per_hundred -62.1543 15.1407 -4.105 0.000739
 \*\*\*
 </td>
 </tr>
@@ -667,22 +667,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 765.3 on 17 degrees of freedom
+Residual standard error: 766 on 17 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(12 observations deleted due to missingness)
+(11 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.622, Adjusted R-squared: 0.5552
+Multiple R-squared: 0.6214, Adjusted R-squared: 0.5546
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 9.323 on 3 and 17 DF, p-value: 0.0007159
+F-statistic: 9.301 on 3 and 17 DF, p-value: 0.0007245
 </td>
 </tr>
 <tr>
@@ -741,7 +741,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--967.4 -536.6 -140.8 405.7 1844.0
+-968.0 -537.2 -140.9 405.8 1843.4
 </td>
 </tr>
 <tr>
@@ -760,22 +760,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 1420.87091 3879.37704 0.366 0.718687
+(Intercept) 1416.10926 3882.13019 0.365 0.71978
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 98.02266 83.95479 1.168 0.259098
+median_age 98.12522 84.00750 1.168 0.25891
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-sub_stringency_cubed 0.01734 0.01770 0.979 0.341194
+sub_stringency_cubed 0.01730 0.01771 0.977 0.34242
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -59.28013 14.40568 -4.115 0.000723
+people_fully_vaccinated_per_hundred -59.25770 14.41683 -4.110 0.00073
 \*\*\*
 </td>
 </tr>
@@ -795,22 +795,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 768.9 on 17 degrees of freedom
+Residual standard error: 769.4 on 17 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(12 observations deleted due to missingness)
+(11 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.6185, Adjusted R-squared: 0.5511
+Multiple R-squared: 0.618, Adjusted R-squared: 0.5506
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 9.185 on 3 and 17 DF, p-value: 0.0007724
+F-statistic: 9.168 on 3 and 17 DF, p-value: 0.0007797
 </td>
 </tr>
 <tr>
@@ -868,7 +868,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1021.97 -541.34 -83.44 307.29 1732.61
+-1022.98 -544.44 -82.58 309.22 1731.73
 </td>
 </tr>
 <tr>
@@ -887,22 +887,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 2376.9352 4195.1863 0.567 0.57840
+(Intercept) 2351.5108 4198.0703 0.560 0.58269
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 74.5346 93.0168 0.801 0.43401
+median_age 75.1486 93.0654 0.807 0.43054
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-lockdowns 0.5401 0.4928 1.096 0.28833
+lockdowns 0.5352 0.4928 1.086 0.29255
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -67.0583 17.2060 -3.897 0.00116 \*\*
+people_fully_vaccinated_per_hundred -66.9363 17.2174 -3.888 0.00118 \*\*
 </td>
 </tr>
 <tr>
@@ -921,22 +921,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 763.7 on 17 degrees of freedom
+Residual standard error: 764.6 on 17 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(12 observations deleted due to missingness)
+(11 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.6235, Adjusted R-squared: 0.5571
+Multiple R-squared: 0.6228, Adjusted R-squared: 0.5562
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 9.386 on 3 and 17 DF, p-value: 0.0006916
+F-statistic: 9.355 on 3 and 17 DF, p-value: 0.0007034
 </td>
 </tr>
 <tr>
@@ -994,7 +994,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--993.8 -449.3 -125.7 253.3 1776.7
+-994.9 -454.8 -121.4 255.2 1775.5
 </td>
 </tr>
 <tr>
@@ -1013,22 +1013,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 2324.22825 4090.97981 0.568 0.5774
+(Intercept) 2302.97020 4094.38304 0.562 0.58114
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 84.82559 85.81478 0.988 0.3368
+median_age 85.27000 85.87936 0.993 0.33468
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-lockdowns_cubed 0.08397 0.07230 1.162 0.2615
+lockdowns_cubed 0.08334 0.07232 1.152 0.26512
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -68.11543 17.36302 -3.923 0.0011
+people_fully_vaccinated_per_hundred -68.00309 17.37707 -3.913 0.00112
 \*\*
 </td>
 </tr>
@@ -1048,22 +1048,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 760.6 on 17 degrees of freedom
+Residual standard error: 761.5 on 17 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(12 observations deleted due to missingness)
+(11 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.6266, Adjusted R-squared: 0.5607
+Multiple R-squared: 0.6258, Adjusted R-squared: 0.5598
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 9.508 on 3 and 17 DF, p-value: 0.0006469
+F-statistic: 9.477 on 3 and 17 DF, p-value: 0.0006579
 </td>
 </tr>
 <tr>
@@ -1103,7 +1103,7 @@ total_deaths_per_million
 extreme_poverty
 </td>
 <td style="text-align:right;">
--0.4654289
+-0.4718384
 </td>
 </tr>
 <tr>
@@ -1111,7 +1111,7 @@ extreme_poverty
 date_first_death_days
 </td>
 <td style="text-align:right;">
--0.1819080
+-0.1917820
 </td>
 </tr>
 <tr>
@@ -1119,7 +1119,7 @@ date_first_death_days
 cardiovasc_death_rate
 </td>
 <td style="text-align:right;">
--0.1502395
+-0.1441773
 </td>
 </tr>
 <tr>
@@ -1127,15 +1127,7 @@ cardiovasc_death_rate
 population_density
 </td>
 <td style="text-align:right;">
--0.0882582
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-people_fully_vaccinated_per_hundred
-</td>
-<td style="text-align:right;">
-0.0522289
+-0.0852757
 </td>
 </tr>
 <tr>
@@ -1143,7 +1135,15 @@ people_fully_vaccinated_per_hundred
 diabetes_prevalence
 </td>
 <td style="text-align:right;">
-0.0663118
+0.0623282
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+people_fully_vaccinated_per_hundred
+</td>
+<td style="text-align:right;">
+0.0642464
 </td>
 </tr>
 <tr>
@@ -1151,7 +1151,7 @@ diabetes_prevalence
 sub_stringency_cubed
 </td>
 <td style="text-align:right;">
-0.0835010
+0.0743003
 </td>
 </tr>
 <tr>
@@ -1159,7 +1159,7 @@ sub_stringency_cubed
 sub_stringency
 </td>
 <td style="text-align:right;">
-0.1712861
+0.1679505
 </td>
 </tr>
 <tr>
@@ -1167,7 +1167,7 @@ sub_stringency
 stringency
 </td>
 <td style="text-align:right;">
-0.1836262
+0.1801596
 </td>
 </tr>
 <tr>
@@ -1175,7 +1175,7 @@ stringency
 gdp_per_capita
 </td>
 <td style="text-align:right;">
-0.1968093
+0.1878911
 </td>
 </tr>
 <tr>
@@ -1183,7 +1183,7 @@ gdp_per_capita
 lockdowns_cubed
 </td>
 <td style="text-align:right;">
-0.2291676
+0.2306175
 </td>
 </tr>
 <tr>
@@ -1191,7 +1191,7 @@ lockdowns_cubed
 lockdowns
 </td>
 <td style="text-align:right;">
-0.2479068
+0.2500879
 </td>
 </tr>
 <tr>
@@ -1199,7 +1199,7 @@ lockdowns
 latitude
 </td>
 <td style="text-align:right;">
-0.3909777
+0.4063262
 </td>
 </tr>
 <tr>
@@ -1207,7 +1207,7 @@ latitude
 obesity_prevalence
 </td>
 <td style="text-align:right;">
-0.4336849
+0.4391924
 </td>
 </tr>
 <tr>
@@ -1215,7 +1215,7 @@ obesity_prevalence
 life_expectancy
 </td>
 <td style="text-align:right;">
-0.4578609
+0.4545279
 </td>
 </tr>
 <tr>
@@ -1223,7 +1223,7 @@ life_expectancy
 human_development_index
 </td>
 <td style="text-align:right;">
-0.5177075
+0.5185698
 </td>
 </tr>
 <tr>
@@ -1231,7 +1231,7 @@ human_development_index
 median_age
 </td>
 <td style="text-align:right;">
-0.5787018
+0.5813696
 </td>
 </tr>
 </tbody>
@@ -1304,7 +1304,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1877.4 -320.5 17.7 282.1 4096.2
+-1877.4 -320.1 18.2 281.4 4096.6
 </td>
 </tr>
 <tr>
@@ -1323,72 +1323,72 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) 2797.89979 7077.13825 0.395 0.69492
+(Intercept) 2806.60329 7077.86438 0.397 0.69405
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 121.19637 44.85305 2.702 0.01044 \*
+median_age 121.19059 44.85505 2.702 0.01045 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -7.82418 16.03641 -0.488 0.62858
+people_fully_vaccinated_per_hundred -7.77149 16.03363 -0.485 0.63083
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-population_density -0.75180 0.73998 -1.016 0.31643
+population_density -0.75199 0.74008 -1.016 0.31637
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-gdp_per_capita -0.04900 0.02301 -2.130 0.04011 \*
+gdp_per_capita -0.04901 0.02301 -2.130 0.04010 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-extreme_poverty 1.92270 23.28938 0.083 0.93466
+extreme_poverty 1.93872 23.29141 0.083 0.93412
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-cardiovasc_death_rate -1.38452 2.88003 -0.481 0.63362
+cardiovasc_death_rate -1.37980 2.87975 -0.479 0.63474
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-diabetes_prevalence -33.08427 67.00596 -0.494 0.62448
+diabetes_prevalence -33.15002 67.01444 -0.495 0.62384
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-life_expectancy -145.21755 128.84822 -1.127 0.26718
+life_expectancy -145.33413 128.86788 -1.128 0.26687
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-human_development_index 7864.91022 6052.58410 1.299 0.20206
+human_development_index 7866.62925 6053.13564 1.300 0.20200
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-latitude -19.25118 17.62678 -1.092 0.28202
+latitude -19.28366 17.62249 -1.094 0.28111
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-sub_stringency 0.12745 0.15911 0.801 0.42839
+sub_stringency 0.12675 0.15897 0.797 0.43049
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-date_first_death_days 0.28410 8.09412 0.035 0.97219
+date_first_death_days 0.27069 8.09385 0.033 0.97351
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-obesity_prevalence 77.31405 24.88871 3.106 0.00368 \*\*
+obesity_prevalence 77.32846 24.89103 3.107 0.00368 \*\*
 </td>
 </tr>
 <tr>
@@ -1412,17 +1412,17 @@ Residual standard error: 1033 on 36 degrees of freedom
 </tr>
 <tr>
 <td style="text-align:left;">
-(111 observations deleted due to missingness)
+(117 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.5543, Adjusted R-squared: 0.3933
+Multiple R-squared: 0.5542, Adjusted R-squared: 0.3933
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 3.444 on 13 and 36 DF, p-value: 0.001645
+F-statistic: 3.443 on 13 and 36 DF, p-value: 0.001646
 </td>
 </tr>
 <tr>
@@ -1480,7 +1480,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1662.0 -769.7 -218.7 600.0 5091.2
+-1651.7 -774.8 -234.7 594.3 5097.7
 </td>
 </tr>
 <tr>
@@ -1499,22 +1499,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -3538.573 1577.096 -2.244 0.0281 \*
+(Intercept) -3370.996 1573.465 -2.142 0.0357 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 94.574 20.881 4.529 0.0000245 \*\*\*
+median_age 92.352 20.773 4.446 0.0000326 \*\*\*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-stringency 29.216 14.774 1.978 0.0520 .
+stringency 26.908 14.648 1.837 0.0705 .
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -15.800 7.532 -2.098 0.0396 \*
+people_fully_vaccinated_per_hundred -14.089 7.349 -1.917 0.0594 .
 </td>
 </tr>
 <tr>
@@ -1533,22 +1533,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 1106 on 68 degrees of freedom
+Residual standard error: 1107 on 69 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(89 observations deleted due to missingness)
+(94 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.2412, Adjusted R-squared: 0.2077
+Multiple R-squared: 0.2322, Adjusted R-squared: 0.1988
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 7.204 on 3 and 68 DF, p-value: 0.0002865
+F-statistic: 6.956 on 3 and 69 DF, p-value: 0.0003704
 </td>
 </tr>
 <tr>
@@ -1606,7 +1606,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1735.5 -756.3 -159.9 658.2 4970.5
+-1744.8 -751.8 -179.0 673.4 4968.2
 </td>
 </tr>
 <tr>
@@ -1625,22 +1625,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -2218.9735 981.3073 -2.261 0.0269 \*
+(Intercept) -2238.9738 975.0377 -2.296 0.0247 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 100.8162 21.8092 4.623 0.0000175 \*\*\*
+median_age 99.5122 21.6808 4.590 0.0000193 \*\*\*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-sub_stringency 0.2525 0.1264 1.997 0.0498 \*
+sub_stringency 0.2485 0.1256 1.978 0.0519 .
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -17.9387 7.5874 -2.364 0.0209 \*
+people_fully_vaccinated_per_hundred -16.6467 7.3697 -2.259 0.0271 \*
 </td>
 </tr>
 <tr>
@@ -1659,22 +1659,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 1106 on 68 degrees of freedom
+Residual standard error: 1103 on 69 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(89 observations deleted due to missingness)
+(94 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.242, Adjusted R-squared: 0.2086
+Multiple R-squared: 0.2379, Adjusted R-squared: 0.2048
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 7.237 on 3 and 68 DF, p-value: 0.0002764
+F-statistic: 7.179 on 3 and 69 DF, p-value: 0.0002899
 </td>
 </tr>
 <tr>
@@ -1733,7 +1733,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1923.5 -742.0 -167.8 670.5 4965.3
+-1940.9 -749.7 -160.7 669.3 4957.0
 </td>
 </tr>
 <tr>
@@ -1752,22 +1752,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -1775.06135 800.85624 -2.216 0.0300
+(Intercept) -1820.52617 793.83814 -2.293 0.0249
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 101.27327 21.77446 4.651 0.0000157
+median_age 100.42574 21.65252 4.638 0.0000162
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-sub_stringency_cubed 0.02230 0.01084 2.057 0.0436
+sub_stringency_cubed 0.02241 0.01079 2.077 0.0416
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -18.05628 7.57880 -2.382 0.0200
+people_fully_vaccinated_per_hundred -16.94625 7.36326 -2.301 0.0244
 </td>
 </tr>
 <tr>
@@ -1810,22 +1810,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 1104 on 68 degrees of freedom
+Residual standard error: 1100 on 69 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(89 observations deleted due to missingness)
+(94 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.2445, Adjusted R-squared: 0.2112
+Multiple R-squared: 0.242, Adjusted R-squared: 0.2091
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 7.337 on 3 and 68 DF, p-value: 0.000248
+F-statistic: 7.345 on 3 and 69 DF, p-value: 0.000242
 </td>
 </tr>
 <tr>
@@ -1883,7 +1883,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1789.3 -797.3 -143.4 630.8 4929.2
+-1803.7 -808.6 -132.5 626.4 4935.6
 </td>
 </tr>
 <tr>
@@ -1902,22 +1902,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -2167.1913 918.5009 -2.359 0.0212 \*
+(Intercept) -2156.7330 913.6091 -2.361 0.0211 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 100.9455 21.5576 4.683 0.000014 \*\*\*
+median_age 99.1117 21.4290 4.625 0.000017 \*\*\*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-lockdowns 0.5596 0.2613 2.142 0.0358 \*
+lockdowns 0.5375 0.2590 2.075 0.0417 \*
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -18.7563 7.6033 -2.467 0.0162 \*
+people_fully_vaccinated_per_hundred -17.2339 7.3843 -2.334 0.0225 \*
 </td>
 </tr>
 <tr>
@@ -1936,22 +1936,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 1101 on 68 degrees of freedom
+Residual standard error: 1100 on 69 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(89 observations deleted due to missingness)
+(94 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.2483, Adjusted R-squared: 0.2151
+Multiple R-squared: 0.242, Adjusted R-squared: 0.209
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 7.485 on 3 and 68 DF, p-value: 0.0002111
+F-statistic: 7.342 on 3 and 69 DF, p-value: 0.0002428
 </td>
 </tr>
 <tr>
@@ -2009,7 +2009,7 @@ Min 1Q Median 3Q Max
 </tr>
 <tr>
 <td style="text-align:left;">
--1637.3 -785.3 -231.2 710.8 4934.0
+-1660.6 -750.7 -220.4 704.5 4941.3
 </td>
 </tr>
 <tr>
@@ -2028,22 +2028,22 @@ Estimate Std. Error t value Pr(\>\|t\|)
 </tr>
 <tr>
 <td style="text-align:left;">
-(Intercept) -1641.24360 708.67679 -2.316 0.02358
+(Intercept) -1652.78407 707.53054 -2.336 0.0224
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-median_age 102.69806 21.36218 4.807 0.00000881
+median_age 100.58525 21.24613 4.734 0.0000113
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-lockdowns_cubed 0.07391 0.03069 2.409 0.01872
+lockdowns_cubed 0.07061 0.03047 2.317 0.0235
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred -21.37631 7.75850 -2.755 0.00752
+people_fully_vaccinated_per_hundred -19.56095 7.52347 -2.600 0.0114
 </td>
 </tr>
 <tr>
@@ -2067,7 +2067,7 @@ lockdowns_cubed \*
 </tr>
 <tr>
 <td style="text-align:left;">
-people_fully_vaccinated_per_hundred \*\*
+people_fully_vaccinated_per_hundred \*
 </td>
 </tr>
 <tr>
@@ -2086,22 +2086,22 @@ Signif. codes: 0 ‘***’ 0.001 ’**’ 0.01 ’*’ 0.05 ‘.’ 0.1 ’ ’ 
 </tr>
 <tr>
 <td style="text-align:left;">
-Residual standard error: 1092 on 68 degrees of freedom
+Residual standard error: 1092 on 69 degrees of freedom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-(89 observations deleted due to missingness)
+(94 observations deleted due to missingness)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Multiple R-squared: 0.2606, Adjusted R-squared: 0.228
+Multiple R-squared: 0.2528, Adjusted R-squared: 0.2203
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-F-statistic: 7.99 on 3 and 68 DF, p-value: 0.0001227
+F-statistic: 7.782 on 3 and 69 DF, p-value: 0.0001507
 </td>
 </tr>
 <tr>
@@ -2121,7 +2121,7 @@ F-statistic: 7.99 on 3 and 68 DF, p-value: 0.0001227
 
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-Countries in analysis (n = 161)
+Countries in analysis (n = 167)
 </caption>
 <thead>
 <tr>
@@ -2228,7 +2228,7 @@ Bolivia
 </tr>
 <tr>
 <td style="text-align:left;">
-Bosnia and Herzegovina
+Bosnia & Herzegovina
 </td>
 </tr>
 <tr>
@@ -2239,6 +2239,11 @@ Botswana
 <tr>
 <td style="text-align:left;">
 Brazil
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brunei
 </td>
 </tr>
 <tr>
@@ -2303,7 +2308,12 @@ Comoros
 </tr>
 <tr>
 <td style="text-align:left;">
-Congo
+Congo - Brazzaville
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Congo - Kinshasa
 </td>
 </tr>
 <tr>
@@ -2313,7 +2323,7 @@ Costa Rica
 </tr>
 <tr>
 <td style="text-align:left;">
-Cote d’Ivoire
+Côte d’Ivoire
 </td>
 </tr>
 <tr>
@@ -2379,6 +2389,11 @@ Eritrea
 <tr>
 <td style="text-align:left;">
 Estonia
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Eswatini
 </td>
 </tr>
 <tr>
@@ -2548,6 +2563,11 @@ Kyrgyzstan
 </tr>
 <tr>
 <td style="text-align:left;">
+Laos
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Latvia
 </td>
 </tr>
@@ -2564,6 +2584,11 @@ Lesotho
 <tr>
 <td style="text-align:left;">
 Liberia
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Libya
 </td>
 </tr>
 <tr>
@@ -2638,7 +2663,7 @@ Mozambique
 </tr>
 <tr>
 <td style="text-align:left;">
-Myanmar
+Myanmar (Burma)
 </td>
 </tr>
 <tr>
@@ -2734,6 +2759,11 @@ Qatar
 <tr>
 <td style="text-align:left;">
 Romania
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Russia
 </td>
 </tr>
 <tr>
@@ -2858,7 +2888,7 @@ Tonga
 </tr>
 <tr>
 <td style="text-align:left;">
-Trinidad and Tobago
+Trinidad & Tobago
 </td>
 </tr>
 <tr>
@@ -2943,7 +2973,7 @@ Zimbabwe
 
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-Countries in analysis (n = 33)
+Countries in analysis (n = 32)
 </caption>
 <thead>
 <tr>
@@ -2966,11 +2996,6 @@ Austria
 <tr>
 <td style="text-align:left;">
 Belgium
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Bosnia and Herzegovina
 </td>
 </tr>
 <tr>

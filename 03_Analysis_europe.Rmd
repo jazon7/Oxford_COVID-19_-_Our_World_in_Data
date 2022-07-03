@@ -67,16 +67,16 @@ corr_plot <- function (df){
 corr_matrix <- function(df){
   date <- df$date[1]
   corPlot(df[,unlist(lapply(df, is.numeric))],
-        min.length = 10,
+        min.length = 20,
         scale = FALSE,
         diag = FALSE,
         upper = FALSE,
         alpha = 0.20,
         stars = TRUE,
         cex = 0.5,
-        cex.axis = 0.5,
+        cex.axis = 0.55,
         xlas = 2,
-        main = paste0("Correlation - Europe - Total deaths per million - ",date),
+        main = paste0("Correlations - Europe -  ",date),
         )
   
 }
@@ -182,54 +182,11 @@ create_model_lockdowns_cubed <- function(df){
                 people_fully_vaccinated_per_hundred,data = df)
   return(model)
 } 
+```
 
-#function to plot scatter plot 
-country_scatter <- function(df_input, x_metric, title) {
-  if(df_input %>% select(x_metric) %>% min(na.rm = T) >=1){
-    min_x <- df_input %>% select(x_metric) %>% min(na.rm = T)
-  }
-  else{
-    min_x <- df_input %>% select(x_metric) %>% min(na.rm = T)
-  }
-  
-  max_x <- df_input %>% select(x_metric) %>% max(na.rm = T)
-  max_y <- df_input %>% select('total_deaths_per_million') %>% max(na.rm = T)
-  
-  if (title == 'yes') {Switch = T}
-  else {Switch = F}
-
-
-  date <- df_input %>% select(date) %>% filter(row_number()==1) %>% pull()
-  plot <- df_input %>% 
-ggplot(aes_string(x = x_metric, y = "total_deaths_per_million", label = "location")) +
-        geom_point(data = df_input, aes(color = continent)) +
-        geom_smooth(method = lm, se = F, colour = 'grey') +
-        facet_wrap(~continent) +
-        scale_size_continuous(range = c(2,10)) +
-        scale_color_viridis(discrete = TRUE, option = 'C') +
-        geom_text_repel(max.overlaps = 10, size = 3) +
-        annotate("text", label= paste0("R = ", round(with(df_input,
-                cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$estimate, 2),", p = ", 
-                round(with(df_input,cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$p.value, 3),
-                ", n = ", nrow(df_input)),x = min_x + (0.10 * (max_x - min_x)), y = max_y, color = "red", size = 3) +
-        labs(color = "Continent") +
-        ylab("Total deaths per million") +
-        xlab(x_metric) +
-        {if(Switch)ggtitle(paste0("Total deaths per million vs ", x_metric, " as of ", date))} +
-        guides(color = guide_legend(override.aes = list(size = 7))) +
-        theme_minimal()+
-        theme(axis.title = element_text(size = 14, family="serif"),
-              axis.text = element_text(size = 12, family="serif"),
-              legend.title = element_text(size = 13,family="serif"),
-              legend.text = element_text(size = 10,family="serif"),
-              plot.title = element_text(size = 14, family="serif"),
-              plot.title.position = 'plot'
-              )
-  return(plot)
-}
-
+```{r}
 #map print function
-country_map <- function(df,dt,fill_var,title,country_list,include_title){
+country_map <- function(df,dt,fill_var,title,leg_label,country_list,include_title){
   
   if (include_title == 'yes') {Switch = T}
   else if((include_title == 'no')) {Switch = F}
@@ -248,7 +205,7 @@ country_map <- function(df,dt,fill_var,title,country_list,include_title){
   map_df <- full_join(map_data,df_world, by = 'location') %>% 
   #select only specific columns
   select(location,sub_stringency,sub_stringency_cubed, total_deaths_per_million,
-         stringency,group, long, lat)
+          stringency,lockdowns, lockdowns_cubed, group, long, lat)
   
   #summarise data to reduce to one country per row
   map_lab_data <- map_df %>%
@@ -263,7 +220,7 @@ country_map <- function(df,dt,fill_var,title,country_list,include_title){
   map <- ggplot(map_df, aes(x = long, y = lat, group = group)) +
   geom_polygon(aes_string(fill = fill_var), colour = 'white') +
   scale_fill_viridis_c(option = "C", direction = -1) +
-  labs(fill = fill_var) +
+  labs(fill = leg_label) +
   {if(Switch)ggtitle(paste0(title, " Map ", date_input))} +
   geom_text_repel(data = map_lab_data, aes(label = location), max.overlaps = 7,
             size=3, min.segment.length = 2, colour = 'black',
@@ -282,17 +239,71 @@ country_map <- function(df,dt,fill_var,title,country_list,include_title){
 }
 ```
 
+```{r}
+#function to plot scatter plot 
+country_scatter <- function(df_input, x_metric, x_label, title, equation = "no") {
+  if(df_input %>% select(x_metric) %>% min(na.rm = T) >=1){
+    min_x <- df_input %>% select(x_metric) %>% min(na.rm = T)
+  }
+  else{
+    min_x <- df_input %>% select(x_metric) %>% min(na.rm = T)
+  }
+  
+  max_x <- df_input %>% select(x_metric) %>% max(na.rm = T)
+  max_y <- df_input %>% select('total_deaths_per_million') %>% max(na.rm = T)
+  
+  if (title == 'yes') {Switch = T}
+  else {Switch = F}
+
+  if (equation == 'ann') {ann = T}
+  else {ann = F}
+
+  date <- df_input %>% select(date) %>% filter(row_number()==1) %>% pull()
+  plot <- df_input %>% 
+ggplot(aes_string(x = x_metric, y = "total_deaths_per_million", label = "location")) +
+        geom_point(data = df_input, aes(color = continent)) +
+        geom_smooth(method = lm, se = F, colour = 'grey') +
+        facet_wrap(~continent) +
+        scale_size_continuous(range = c(2,10)) +
+        scale_color_viridis(discrete = TRUE, option = 'C') +
+        geom_text_repel(max.overlaps = 10, size = 3) +
+        {if(ann)annotate("text", label= paste0("R = ", round(with(df_input,
+                cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$estimate, 2),", p = ", 
+                round(with(df_input,cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$p.value, 3),
+                ", n = ", nrow(df_input)),x = min_x + (0.10 * (max_x - min_x)), y = max_y, color = "red", size = 3)} +
+        labs(color = "Continent") +
+        ylab("Total deaths per million") +
+        xlab(x_label) +
+        {if(Switch)ggtitle(paste0("Total deaths per million vs ", x_label, " as of ", date))} +
+        guides(color = guide_legend(override.aes = list(size = 7))) +
+        theme_minimal()+
+        theme(axis.title = element_text(size = 13, family="serif"),
+              axis.text = element_text(size = 11, family="serif"),
+              legend.title = element_text(size = 13,family="serif"),
+              legend.text = element_text(size = 10,family="serif"),
+              plot.title = element_text(size = 14, family="serif"),
+              plot.title.position = 'plot'
+              )
+  return(plot)
+}
+
+```
+
+
+
 # **European Countries - 2020-12-30**
 
 ### Maps
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
 ggarrange(
-country_map(df_europe_20201230,'2020-12-30',"stringency","Europe",lally_countries_map,'no'),
-country_map(df_europe_20201230,'2020-12-30',"total_deaths_per_million","Europe",lally_countries_map,'no'),
-country_map(df_europe_20201230,'2020-12-30',"sub_stringency","Europe",lally_countries_map,'no'), 
-country_map(df_europe_20201230,'2020-12-30',"sub_stringency_cubed","Europe",lally_countries_map,'no'), nrow = 2, ncol = 2) %>% 
+country_map(df_europe_20201230,'2020-12-30',"stringency","Europe","Stringency",lally_countries_map,'no'),
+country_map(df_europe_20201230,'2020-12-30',"sub_stringency","Europe","Sub\nStringency",lally_countries_map,'no'), 
+country_map(df_europe_20201230,'2020-12-30',"sub_stringency_cubed","Europe","Sub\nStringency^3",lally_countries_map,'no'),
+country_map(df_europe_20201230,'2020-12-30',"lockdowns_cubed","Europe","Lockdowns^3",lally_countries_map,'no'),
+nrow = 2, ncol = 2) %>% 
 annotate_figure(map, top = text_grob(paste0("Europe Map ", "2020-12-30"), color = "black", 
           face = "bold", size = 16))
+
 ```
 
 ### Correlations - total covid deaths per million
@@ -304,11 +315,11 @@ corr_matrix(df_europe_20201230)
 
 ### Scatter plots - total covid deaths per million vs. stringency / sub_stringency cubed
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-country_scatter(df_europe_20201230,"stringency",'yes')
-country_scatter(df_europe_20201230,"sub_stringency",'yes')
-country_scatter(df_europe_20201230,"sub_stringency_cubed",'yes')
-country_scatter(df_europe_20201230,"lockdowns",'yes')
-country_scatter(df_europe_20201230,"lockdowns_cubed",'yes')
+ggarrange(
+ country_scatter(df_europe_20201230,"stringency","Stringency",'no') + rremove("ylab"),
+country_scatter(df_europe_20201230,"sub_stringency_cubed","Sub-stringency^3",'no') + rremove("ylab"), ncol = 2, legend = F) %>% 
+  annotate_figure(map, top = text_grob(paste0("Total Deaths per Million vs. Stringency " , "2020-12-30"), color = "black", 
+          face = "bold", size = 14), left = text_grob("Total Deaths per Million", rot = 90, vjust = 1))
 ```
 
 ### Regression
@@ -326,11 +337,12 @@ mlr_table_lock(df_europe_20201230)
 ### Maps
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
 ggarrange(
-country_map(df_europe_20211230,'2021-12-30',"stringency","Europe",lally_countries_map,'no'),
-country_map(df_europe_20211230,'2021-12-30',"total_deaths_per_million","Europe",lally_countries_map,'no'),
-country_map(df_europe_20211230,'2021-12-30',"sub_stringency","Europe",lally_countries_map,'no'), 
-country_map(df_europe_20211230,'2021-12-30',"sub_stringency_cubed","Europe",lally_countries_map,'no'), nrow = 2, ncol = 2) %>% 
-annotate_figure(map, top = text_grob(paste0("Europe Map ", "2021-12-30"), color = "black", 
+country_map(df_europe_20211230,'2021-12-30',"stringency","Europe","Stringency",lally_countries_map,'no'),
+country_map(df_europe_20211230,'2021-12-30',"sub_stringency","Europe","Sub\nStringency",lally_countries_map,'no'), 
+country_map(df_europe_20211230,'2021-12-30',"sub_stringency_cubed","Europe","Sub\nStringency^3",lally_countries_map,'no'),
+country_map(df_europe_20211230,'2021-12-30',"lockdowns_cubed","Europe","Lockdowns^3",lally_countries_map,'no'),
+nrow = 2, ncol = 2) %>% 
+annotate_figure(map, top = text_grob(paste0("Europe Map ", '2021-12-30'), color = "black", 
           face = "bold", size = 16))
 ```
 
@@ -343,11 +355,11 @@ corr_matrix(df_europe_20211230)
 
 ### Scatter plots - total covid deaths per million vs. stringency / sub_stringency cubed
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-country_scatter(df_europe_20211230,"stringency",'yes')
-country_scatter(df_europe_20211230,"sub_stringency",'yes')
-country_scatter(df_europe_20211230,"sub_stringency_cubed",'yes')
-country_scatter(df_europe_20211230,"lockdowns",'yes')
-country_scatter(df_europe_20211230,"lockdowns_cubed",'yes')
+ggarrange(
+ country_scatter(df_europe_20211230,"stringency","Stringency",'no') + rremove("ylab"),
+country_scatter(df_europe_20211230,"sub_stringency_cubed","Sub-stringency^3",'no') + rremove("ylab"), ncol = 2, legend = F) %>% 
+  annotate_figure(map, top = text_grob(paste0("Total Deaths per Million vs. Stringency " , "2021-12-30"), color = "black", 
+          face = "bold", size = 14), left = text_grob("Total Deaths per Million", rot = 90, vjust = 1))
 
 ```
 
@@ -376,14 +388,15 @@ mlr_vif(create_model_lockdowns_cubed(df_europe_20211230))
 # **European Countries - 2022-05-20**
 ### Maps
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-
 ggarrange(
-country_map(df_europe_20220520,'2022-05-20',"stringency","Europe",lally_countries_map,'no'),
-country_map(df_europe_20220520,'2022-05-20',"total_deaths_per_million","Europe",lally_countries_map,'no'),
-country_map(df_europe_20220520,'2022-05-20',"sub_stringency","Europe",lally_countries_map,'no'), 
-country_map(df_europe_20220520,'2022-05-20',"sub_stringency_cubed","Europe",lally_countries_map,'no'), nrow = 2, ncol = 2) %>% 
-annotate_figure(map, top = text_grob(paste0("Europe Map ", "2022-05-20"), color = "black", 
+country_map(df_europe_20220520,'2022-05-20',"stringency","Europe","Stringency",lally_countries_map,'no'),
+country_map(df_europe_20220520,'2022-05-20',"sub_stringency","Europe","Sub\nStringency",lally_countries_map,'no'), 
+country_map(df_europe_20220520,'2022-05-20',"sub_stringency_cubed","Europe","Sub\nStringency^3",lally_countries_map,'no'),
+country_map(df_europe_20220520,'2022-05-20',"lockdowns_cubed","Europe","Lockdowns^3",lally_countries_map,'no'),
+nrow = 2, ncol = 2) %>% 
+annotate_figure(map, top = text_grob(paste0("Europe Map ", '2022-05-20'), color = "black", 
           face = "bold", size = 16))
+
 ```
 
 ### Correlations
@@ -395,12 +408,11 @@ corr_matrix(df_europe_20220520)
 
 ### Scatter plots - total deaths per million vs. stringency / total restrictions cubed
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-
-country_scatter(df_europe_20220520,"stringency",'yes')
-country_scatter(df_europe_20220520,"sub_stringency",'yes')
-country_scatter(df_europe_20220520,"sub_stringency_cubed",'yes')
-country_scatter(df_europe_20220520,"lockdowns",'yes')
-country_scatter(df_europe_20220520,"lockdowns_cubed",'yes')
+country_scatter(df_europe_20220520,"stringency","Stringency",'yes')
+country_scatter(df_europe_20220520,"sub_stringency","Sub-stringency",'yes')
+country_scatter(df_europe_20220520,"sub_stringency_cubed","Sub-stringency^3",'yes')
+country_scatter(df_europe_20220520,"lockdowns","Lockdowns",'yes')
+country_scatter(df_europe_20220520,"lockdowns_cubed","Lockdowns^3",'yes')
 ```
 
 ### Regression
@@ -443,6 +455,6 @@ lally_countries %>% as_tibble() %>%
 * [Obesity Data](https://github.com/camminady/overweight)
 
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-rm(list=setdiff(ls()," "))
+#rm(list=setdiff(ls()," "))
 ```
 

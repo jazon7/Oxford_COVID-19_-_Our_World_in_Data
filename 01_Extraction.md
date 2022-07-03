@@ -6,7 +6,7 @@ Load required packages
 ``` r
 if (!require(pacman)) install.packages('pacman')
 library(pacman)
-p_load(tidyverse,readxl,lubridate,data.table,scales)
+p_load(tidyverse,readxl,lubridate,data.table,scales,countrycode)
 #remove scientific notation and warnings
 options(scipen=999)
 options(warn=-1)
@@ -79,6 +79,7 @@ ox_df <- ox_raw %>% filter(Jurisdiction == "NAT_TOTAL")
 colnames(ox_df)[6] <- 'date'
 colnames(ox_df)[1] <- 'location'
 colnames(ox_df)[2] <- 'iso_code'
+
 ox_df$date <- as.character(ox_df$date)
 ox_df$date <- as.Date(ox_df$date, '%Y%m%d')
 names(ox_df) <- tolower(gsub("([a-z1-9])([A-Z])", "\\1_\\2", names(ox_df)))
@@ -92,48 +93,50 @@ names(ox_df) <- gsub(" ", "_", names(ox_df))
 cv_raw <- fread("owid-covid-data.csv",stringsAsFactors = TRUE) %>% as_tibble()
 cv_raw <- cv_raw %>% select(-c(tests_units,stringency_index))
 
+#cv_raw <- merge(cv_raw, iso_3, all = FALSE, "iso_code")
 
 #import latitude data and select columns with location, latitude, and longitude
-lat <- fread("average-latitude-longitude-countries.csv",stringsAsFactors = TRUE) %>% as_tibble() %>% select(2:4)
-#rename columns of latitude data for database consistency
-colnames(lat) <- c('location','lat_raw','long_raw') 
-names(lat) <- tolower(names(lat))
-lat$location <- gsub("Czech Republic","Czechia",lat$location)
-lat$location <- gsub("Iran, Islamic Republic of","Iran",lat$location)
-lat$location <- gsub("Korea, Democratic People's Republic of","North Korea",lat$location)
-lat$location <- gsub("Korea, Republic of","South Korea",lat$location)
-lat$location <- gsub("Moldova, Republic of","Moldova",lat$location)
-lat$location <- gsub("Syrian Arab Republic","Syria",lat$location)
-lat$location <- gsub("Tanzania, United Republic of","Tanzania",lat$location)
-lat$location <- gsub("Lao People's Democratic Republic","Lao",lat$location)
+lat <- fread("average-latitude-longitude-countries.csv",stringsAsFactors = TRUE) %>% 
+  as_tibble() %>% 
+  select(1:4) %>% 
+  rename(iso_code = `ISO 3166 Country Code`)
 
-ox_country_list <- ox_df %>% filter(date == "2020-12-30") %>% select(location,iso_code)
-cv_country_list <- cv_raw %>%  filter(date == "2020-12-30") %>%  select(location,iso_code)
-lat_country_list <- lat$location %>% as_tibble()
+#lat <- merge(lat, iso_2, all = FALSE, "iso_code")
+
+#rename columns of latitude data for database consistency
+colnames(lat) <- c('iso_code','location','lat_raw','long_raw') 
+names(lat) <- tolower(names(lat))
 
 obe <- fread("owid-obesity.csv",stringsAsFactors = TRUE) %>% as_tibble()
-names(obe)
-```
 
-    ## [1] "Entity"                                                                                                                                         
-    ## [2] "Code"                                                                                                                                           
-    ## [3] "Year"                                                                                                                                           
-    ## [4] "Indicator:Prevalence of obesity among adults, BMI &GreaterEqual; 30 (age-standardized estimate) (%) - Age Group:18+  years - Sex:Both sexes (%)"
-
-``` r
 obe <- obe %>% 
   filter(Year == max(obe$Year)) %>% 
   rename(obesity_prevalence = `Indicator:Prevalence of obesity among adults, BMI &GreaterEqual; 30 (age-standardized estimate) (%) - Age Group:18+  years - Sex:Both sexes (%)`,
-                                                        location = Entity, iso_code = Code) %>% 
-  select(-c("Year","location"))
+         location = Entity, 
+         iso_code = Code) 
+
+obe <- obe %>% 
+  mutate(location = countrycode(obe$iso_code, "iso3c", "country.name"))
+
+ox_df <- ox_df %>% 
+  mutate(location = countrycode(ox_df$iso_code, "iso3c", "country.name"))
+
+lat <- lat %>% 
+  mutate(location = countrycode(lat$iso_code, "iso2c", "country.name"))
+
+cv_raw <- cv_raw %>% 
+  mutate(location = countrycode(cv_raw$iso_code, "iso3c", "country.name"))
+
 #merge oxford and owid data
 df <- merge(cv_raw, ox_df, by = c('iso_code','location','date'))
 
+lat <- lat %>% select(-iso_code)
 #merge main dataframe with latitude data frame
 df <- merge(df, lat, by = 'location')
 
 #merge main dataframe with obesity data frame
-df <- merge(df, obe, by = 'iso_code')
+obe <- obe %>% select(-c("Year","iso_code"))
+df <- merge(df, obe, by = 'location')
 
 #create new column removing negative sign form latitude / long data
 df <- df %>% mutate(latitude = abs(lat_raw), longitude = abs(long_raw))
@@ -166,10 +169,12 @@ df  <- df %>%
 df  <- df %>% 
   group_by(location) %>% 
   mutate(
-    total_restrictions = cum_c2_workplace_closing + cum_c6_stay_at_home_requirements + 
+    sub_stringency = cum_c2_workplace_closing + cum_c6_stay_at_home_requirements + 
       cum_c7_restrictions_on_internal_movement + cum_h6_facial_coverings,
-    total_restrictions_cubed = cum_c2_workplace_closing_cubed + cum_c6_stay_at_home_requirements_cubed + 
-      cum_c7_restrictions_on_internal_movement_cubed + cum_h6_facial_coverings_cubed)
+    sub_stringency_cubed = cum_c2_workplace_closing_cubed + cum_c6_stay_at_home_requirements_cubed + 
+      cum_c7_restrictions_on_internal_movement_cubed + cum_h6_facial_coverings_cubed,
+    lockdowns = cum_c2_workplace_closing + cum_c6_stay_at_home_requirements,
+    lockdowns_cubed = cum_c2_workplace_closing_cubed + cum_c6_stay_at_home_requirements_cubed)
 
 #sanity check to make sure there is only one row per date
 df_check <- df %>% count(location,date)
@@ -209,7 +214,7 @@ df_continent <- function(df, cnt){
 #find max stringency index and populate new column
 
 #helper function to find max stringency 
-find_max_stringency <- function(ct,dt){
+find_stringency <- function(ct,dt){
   output <- df %>% 
     ungroup() %>%
     filter(location == ct & date <= dt) %>%
@@ -238,20 +243,20 @@ df <- df %>% mutate(date_first_death_days = as.numeric(difftime(first_death_date
 
 
 #find max stringency
-df_max_si <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,max(df$date) %>% as.character()))
+df_max_si <- df %>% group_by(location) %>% summarise(stringency = find_stringency(location,max(df$date) %>% as.character()))
 
-df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = 
-find_max_stringency(location,"2020-12-30"))
+df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(stringency = 
+find_stringency(location,"2020-12-30"))
 
-df_max_si_europe_20201230 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2020-12-30"))
+df_max_si_europe_20201230 <- df %>% group_by(location) %>% summarise(stringency = find_stringency(location,"2020-12-30"))
 
-df_max_si_europe_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2021-12-30"))
+df_max_si_europe_20211230 <- df %>% group_by(location) %>% summarise(stringency = find_stringency(location,"2021-12-30"))
 
-df_max_si_europe_20220520 <- df %>% group_by(location) %>% summarise(max_stringency = find_max_stringency(location,"2022-05-20"))
+df_max_si_europe_20220520 <- df %>% group_by(location) %>% summarise(stringency = find_stringency(location,"2022-05-20"))
 
 
-df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(max_stringency = 
-find_max_stringency(location,"2021-12-30"))
+df_max_si_world_20211230 <- df %>% group_by(location) %>% summarise(stringency = 
+find_stringency(location,"2021-12-30"))
 
 
 df_large <- merge(df, df_max_si, by = 'location')
@@ -277,7 +282,7 @@ df_world_20211230_large <- merge(df_world_20211230, df_max_si_world_20211230, by
 ``` r
 #create filtered data frame to output to csv
 
-small_column_list <- c("iso_code","continent","location","date","c2_workplace_closing","c2_workplace_closing_cubed","cum_c2_workplace_closing","cum_c2_workplace_closing_cubed","c6_stay_at_home_requirements","c6_stay_at_home_requirements_cubed","cum_c6_stay_at_home_requirements","cum_c6_stay_at_home_requirements_cubed","c7_restrictions_on_internal_movement","c7_restrictions_on_internal_movement_cubed","cum_c7_restrictions_on_internal_movement","cum_c7_restrictions_on_internal_movement_cubed","h6_facial_coverings","h6_facial_coverings_cubed","cum_h6_facial_coverings","cum_h6_facial_coverings_cubed","total_restrictions","total_restrictions_cubed","new_deaths_per_million","total_deaths_per_million","stringency_index_for_display","government_response_index_for_display","containment_health_index_for_display","economic_support_index_for_display","date_first_death_days","max_stringency","population_density","obesity_prevalence")
+small_column_list <- c("iso_code","continent","location","date","c2_workplace_closing","c2_workplace_closing_cubed","cum_c2_workplace_closing","cum_c2_workplace_closing_cubed","c6_stay_at_home_requirements","c6_stay_at_home_requirements_cubed","cum_c6_stay_at_home_requirements","cum_c6_stay_at_home_requirements_cubed","c7_restrictions_on_internal_movement","c7_restrictions_on_internal_movement_cubed","cum_c7_restrictions_on_internal_movement","cum_c7_restrictions_on_internal_movement_cubed","h6_facial_coverings","h6_facial_coverings_cubed","cum_h6_facial_coverings","cum_h6_facial_coverings_cubed","sub_stringency","sub_stringency_cubed","new_deaths_per_million","total_deaths_per_million","stringency_index_for_display","government_response_index_for_display","containment_health_index_for_display","economic_support_index_for_display","date_first_death_days","stringency","population_density","obesity_prevalence")
 
 df_small <- df_large %>% select(small_column_list)
 
