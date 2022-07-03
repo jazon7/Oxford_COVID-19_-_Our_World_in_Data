@@ -184,7 +184,7 @@ create_model_lockdowns_cubed <- function(df){
 } 
 ```
 
-```{r}
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
 #map print function
 country_map <- function(df,dt,fill_var,title,leg_label,country_list,include_title){
   
@@ -239,7 +239,7 @@ country_map <- function(df,dt,fill_var,title,leg_label,country_list,include_titl
 }
 ```
 
-```{r}
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
 #function to plot scatter plot 
 country_scatter <- function(df_input, x_metric, x_label, title, equation = "no") {
   if(df_input %>% select(x_metric) %>% min(na.rm = T) >=1){
@@ -408,11 +408,12 @@ corr_matrix(df_europe_20220520)
 
 ### Scatter plots - total deaths per million vs. stringency / total restrictions cubed
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-country_scatter(df_europe_20220520,"stringency","Stringency",'yes')
-country_scatter(df_europe_20220520,"sub_stringency","Sub-stringency",'yes')
-country_scatter(df_europe_20220520,"sub_stringency_cubed","Sub-stringency^3",'yes')
-country_scatter(df_europe_20220520,"lockdowns","Lockdowns",'yes')
-country_scatter(df_europe_20220520,"lockdowns_cubed","Lockdowns^3",'yes')
+
+ggarrange(
+ country_scatter(df_europe_20220520,"stringency","Stringency",'no') + rremove("ylab"),
+country_scatter(df_europe_20220520,"sub_stringency_cubed","Sub-stringency^3",'no') + rremove("ylab"), ncol = 2, legend = F) %>% 
+  annotate_figure(map, top = text_grob(paste0("Total Deaths per Million vs. Stringency " , "2022-05-20"), color = "black", 
+          face = "bold", size = 14), left = text_grob("Total Deaths per Million", rot = 90, vjust = 1))
 ```
 
 ### Regression

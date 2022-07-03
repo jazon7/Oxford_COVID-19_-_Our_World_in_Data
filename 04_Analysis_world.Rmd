@@ -172,7 +172,7 @@ create_model_lockdowns_cubed <- function(df){
 
 ```
 
-```{r}
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
 #function to plot scatter plot 
 country_scatter <- function(df_input, y_metric, y_label, x_metric, x_label, title,  equation = "no", facet = 'no') {
   if(df_input %>% select(x_metric) %>% min(na.rm = T) >=1){
@@ -226,7 +226,7 @@ ggplot(aes_string(x = x_metric, y = y_metric, label = "location")) +
 ```
 
 
-```{r}
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
 #map print function
 country_map <- function(df,dt,fill_var,title,include_title,leg_label){
   
@@ -306,13 +306,6 @@ corr_matrix(df_world_20211230)
 
 ### Scatter plots - total covid deaths per million vs. stringency / sub_stringency cubed
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
-ggarrange(
- country_scatter(df_world_20211230,"total_deaths_per_million","Total Deaths per Million","stringency", "Stringency",'no','no') + rremove("ylab"),
- country_scatter(df_world_20211230,"total_deaths_per_million","Total Deaths per Million","lockdowns_cubed", "lockdowns^3",'no','no') + rremove("ylab"),
- country_scatter(df_world_20211230,"total_deaths_per_million","Total Deaths per Million","median_age","Median Age",'no','no') + rremove("ylab"),
- country_scatter(df_world_20211230,"total_deaths_per_million","Total Deaths per Million","people_fully_vaccinated_per_hundred","Fully Vaccinated %",'no','no') + rremove("ylab"), ncol = 2,nrow=2, common.legend = T, legend = c("right")) %>% 
-  annotate_figure(map, left = text_grob("Total Deaths per Million", rot = 90, vjust = 1))
-
 country_scatter(df_world_20211230,"total_deaths_per_million","Total Deaths per Million","stringency", "Stringency",'no','no',"fac")
 country_scatter(df_world_20211230,"total_deaths_per_million","Total Deaths per Million","lockdowns", "lockdowns",'yes','no',"fac")
 country_scatter(df_world_20211230,"total_deaths_per_million","Total Deaths per Million","median_age","Median Age",'no','no',"fac")

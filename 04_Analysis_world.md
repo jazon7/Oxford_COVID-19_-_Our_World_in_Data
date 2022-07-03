@@ -1,112 +1,6 @@
 Covid Data and Restrictions - Regression Models - World
 ================
 
-``` r
-#function to plot scatter plot 
-country_scatter <- function(df_input, y_metric, y_label, x_metric, x_label, title,  equation = "no", facet = 'no') {
-  if(df_input %>% select(x_metric) %>% min(na.rm = T) >=1){
-    min_x <- df_input %>% select(x_metric) %>% min(na.rm = T)
-  }
-  else{
-    min_x <- df_input %>% select(x_metric) %>% min(na.rm = T)
-  }
-  
-  max_x <- df_input %>% select(x_metric) %>% max(na.rm = T)
-  max_y <- df_input %>% select(y_metric) %>% max(na.rm = T)
-  if (title == 'yes') {tit = T}
-  else {tit = F}
-  
-  if (equation == 'ann') {ann = T}
-  else {ann = F}
-  
-  if (facet == 'fac') {fc = T}
-  else {fc = F}
-
-  date <- df_input %>% select(date) %>% filter(row_number()==1) %>% pull()
-  plot <- df_input %>% 
-ggplot(aes_string(x = x_metric, y = y_metric, label = "location")) +
-        geom_point(data = df_input, aes(color = continent)) +
-        geom_smooth(method = lm, se = F, colour = 'grey') +
-        {if(fc)facet_wrap(~continent)} +
-        scale_size_continuous(range = c(2,10)) +
-        scale_color_viridis(discrete = TRUE, option = 'C') +
-        geom_text_repel(max.overlaps = 10, size = 3) +
-        {if(ann)annotate("text", label= paste0("R = ", round(with(df_input,
-                cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$estimate, 2),", p = ", 
-                round(with(df_input,cor.test(total_deaths_per_million, get(x_metric), method = "pearson"))$p.value, 3),
-                ", n = ", nrow(df_input)),x = min_x + (0.10 * (max_x - min_x)), y = max_y, color = "red", size = 3)} +
-        labs(color = "Continent") +
-        ylab(y_label) +
-        xlab(x_label) +
-        {if(tit)ggtitle(paste0(y_label, " vs ", x_metric, " as of ", date))} +
-        guides(color = guide_legend(override.aes = list(size = 7))) +
-        theme_minimal()+
-        theme(axis.title = element_text(size = 14, family="serif"),
-              axis.text = element_text(size = 12, family="serif"),
-              legend.title = element_text(size = 13,family="serif"),
-              legend.text = element_text(size = 10,family="serif"),
-              legend.position="none",
-              plot.title = element_text(size = 14, family="serif"),
-              plot.title.position = 'plot'
-              )
-  return(plot)
-}
-```
-
-``` r
-#map print function
-country_map <- function(df,dt,fill_var,title,include_title,leg_label){
-  
-  if (include_title == 'yes') {Switch = T}
-  else if((include_title == 'no')) {Switch = F}
-  
-  df_world <- df %>% filter(date == dt)
-
-  map_data <- map_data("world") %>% 
-    select(-c(order,subregion)) %>% 
-    rename(location = region)
-  
-  map_data$location <- gsub("Czech Republic","Czechia",map_data$location)
-  map_data$location <- gsub("USA", "United States", map_data$location)
-  map_data$location <- gsub("UK", "United Kingdom", map_data$location)
-  
-  
-  #merge dataframes based on country location
-  map_df <- full_join(map_data,df_world, by = 'location') %>% 
-  #select only specific columns
-  select(location,sub_stringency,sub_stringency_cubed, total_deaths_per_million,
-         stringency,lockdowns, lockdowns_cubed, group, long, lat)
-  
-  #summarise data to reduce to one country per row
-  map_lab_data <- map_df %>%
-  group_by(location) %>%
-  summarise(long = mean(long), lat = mean(lat), group = max(group))
-
-  map_lab_data <- map_lab_data %>% filter(!grepl('Island|Antarctic|South|North', location))
-
-  map <- ggplot(map_df, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes_string(fill = fill_var), colour = 'white') +
-  scale_fill_viridis_c(option = "C", direction = -1,na.value="grey") +
-  labs(fill = leg_label) +
-  {if(Switch)ggtitle(paste0(title, " Map ", dt))} +
-  geom_text_repel(data = map_lab_data, aes(label = location), max.overlaps = 2,
-            size=3.5, min.segment.length = 2, colour = 'black',
-            segment.alpha = 0, segment.color = 'grey50') +
-  theme_map() +
-  coord_cartesian(ylim = c(-50, 90)) +
-  theme(    axis.title=element_blank(),
-            axis.text=element_blank(),
-            axis.ticks=element_blank(),
-            plot.title = element_text(hjust = 0.6, size = 14,face = "bold"),
-            legend.text=element_text(size=10,family="serif"),
-            legend.title=element_text(size=10,family="serif"),
-            legend.position="right",
-            legend.direction = "vertical")
-   
-  return(map)
-}
-```
-
 # **World Countries - 2021-12-30**
 
 ### Maps
@@ -273,7 +167,7 @@ median_age
 
 ### Scatter plots - total covid deaths per million vs. stringency / sub_stringency cubed
 
-![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-4.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-5.png)<!-- -->
+![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->![](04_Analysis_world_files/figure-gfm/unnamed-chunk-8-4.png)<!-- -->
 
 ### Regression
 
